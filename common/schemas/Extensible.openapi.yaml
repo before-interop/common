@@ -1,0 +1,35 @@
+openapi: 3.0.3
+
+info:
+  title: Extensible
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  schemas:
+    Extensible:
+      description: Base schema for adressable entities
+      externalDocs:
+        url: https://datamodel.tmforum.org/en/latest/Common/Extensible
+      type: object
+      properties:
+        "@schemaLocation":
+          type: string
+          format: uri
+          description: A URI to a JSON-Schema file that defines additional attributes and relationships
+          example: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Entity.schema.json
+          readOnly: true
+        "@baseType":
+          type: string
+          description: When sub-classing, this defines the super-class.
+          example: Attachment
+          readOnly: true
+        "@type":
+          type: string
+          description: When sub-classing, this defines the sub-class entity name.
+          example: CustomAttachment
+          readOnly: true

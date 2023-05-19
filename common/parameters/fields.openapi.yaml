@@ -1,0 +1,32 @@
+openapi: 3.0.3
+
+info:
+  title: fields parameter
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  parameters:
+    fields:
+      name: fields
+      in: query
+      description: |
+        Comma-separated list of fields to return.
+
+        * If not specified, all fields will be returned.
+        * If specified, only the specified fields will be returned.
+        * If specified, you can use 2 ways to specify the fields:
+            * `fields=id,name,@type`: the fields must be separated by a comma.
+            * `fields=id&fields=name&fields=@type`: the fields must be specified in separate query parameters.
+
+            Note: You can combine both ways.
+      required: false
+      schema:
+        type: array
+        items:
+          type: string
+        example: id,name,@type

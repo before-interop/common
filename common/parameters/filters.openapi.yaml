@@ -1,0 +1,97 @@
+openapi: 3.0.3
+
+info:
+  title: Dynamic filters parameter
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  parameters:
+    filters:
+      name: filters
+      in: query
+      description: |
+        The filter criteria.
+
+        key: the name of the property to filter on.
+        value: the value of the property to filter on.
+
+        You can filter on nested properties using the dot notation.
+
+        You can also add complex filters using the following syntax:
+
+        `"{key}[{operator}]": "{value}"`
+
+        where:
+
+        * `key`: the name of the property to filter on.
+        * `operator`: the operator to use for the filter.
+        * `value`: the value to be processed by the operator.
+
+        List of operators:
+
+        * `==`: equals (default)
+
+        * `!=`: not equals
+
+        * `>`: greater than
+
+        * `>=`: greater than or equals
+
+        * `<`: less than
+
+        * `<=`: less than or equals
+
+        * `=~`: regex match
+
+        * `!~`: regex not match
+
+        * `in`: check if the value is in the list.
+
+          The value must be a comma-separated list of values.
+
+        * `nin`: not in
+
+        * `is`: Check the nature of a property.
+
+          Allowed values are:
+
+          * `null`: the property must be null
+          * `nnull`: the property must not be null
+          * `empty`: the property must be empty
+          * `nempty`: the property must not be empty
+          * `exists`: the property must exist
+          * `nexists`: the property must not exist
+          * `int`: the property must be an integer
+          * `array`: the property must be an array
+          * `object`: the property must be an object
+          * `string`: the property must be a string
+          * `boolean`: the property must be a boolean
+
+        * `nis`: Inverse of `is` operator
+
+        ---
+
+        Example:
+
+        ```
+        {
+            "@type": "MyType",
+            "status[in]": "OPEN,CLOSED",
+            "myarray[nis]": "empty",
+            "relatedEntity.@referredType": "EntityType",
+            "relatedEntity.id": "31546546"
+        }
+        ```
+
+        The generated Url for the previews example will generate the following query string:
+
+        `%40type=MyType&status%5Bin%5D=OPEN%2CCLOSED&myarray%5Bnis%5D=empty&relatedEntity.%40referredType=EntityType&relatedEntity.id=31546546`
+      schema:
+        type: object
+      style: form
+      explode: true

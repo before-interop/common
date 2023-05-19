@@ -1,0 +1,25 @@
+openapi: 3.0.3
+
+info:
+  title: Addressable
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  schemas:
+    Addressable:
+      description: Base schema for adressable entities
+      externalDocs:
+        url: https://datamodel.tmforum.org/en/latest/Common/Addressable
+      type: object
+      properties:
+        id:
+          description: The unique identifier of the entity.
+          type: string
+        href:
+          description: Reference of the related entity.
+          type: string

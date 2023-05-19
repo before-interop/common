@@ -1,0 +1,43 @@
+openapi: 3.0.3
+
+info:
+  title: StatusEntity
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  schemas:
+    StatusEntity:
+      description: >
+        A base schema for entities that have a status.
+      allOf:
+        - $ref: './Entity.openapi.yaml#/components/schemas/Entity'
+      properties:
+        creationDate:
+          description: The date on which the entity was created.
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: false
+        lastUpdateDate:
+          description: The date on which the entity was last updated.
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: false
+        status:
+          description: The condition of an entity, identified through a code.
+          type: string
+        statusChange:
+          description: Holds the status notification reasons
+            and associated date the status changed.
+
+            Populated by the server
+          type: array
+          items:
+            $ref: './StatusChange.openapi.yaml#/components/schemas/StatusChange'
+          readOnly: true

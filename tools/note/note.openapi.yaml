@@ -1,0 +1,336 @@
+openapi: 3.0.3
+
+info:
+  title: Note API
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  description: |
+    This API allows to manage notes.
+
+    **Note**: This API is not yet implemented by TMF.
+
+    This API is only allowed for internal usage.
+    It is not exposed to the public.
+
+servers:
+- url: '{protocol}://{host}:{port}{basePath}/note'
+  variables:
+    protocol:
+      enum:
+        - https
+        - http
+      default: https
+    host:
+      default: localhost
+    port:
+      default: '8080'
+    basePath:
+      default: /api
+
+tags:
+- name: Note API
+
+paths:
+  /:
+    get:
+      tags:
+      - Note API
+      summary: List notes
+      description: |
+        * If you use the `application/json` media type, the response will be a paginated list of notes.
+        * If you use the `text/event-stream` media type, the response will be a stream of notes.
+
+        **Note**:
+
+        * The stream way does not support pagination. So the `limit` and `offset` query parameters will be ignored.
+        * The paginated way will return a `206 Partial Content` response code.
+        * The output can contain extra fields that are not defined in the API.
+      parameters:
+      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/limit'
+      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/offset'
+      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/sort'
+      - $ref: '../../common/parameters/fields.openapi.yaml#/components/parameters/fields'
+      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      responses:
+        "200":
+          description: The list of notes
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+            X-Result-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Result-Count'
+          content:
+            text/event-stream:
+              schema:
+                $ref: '../../common/schemas/Note.openapi.yaml#/components/schemas/Note'
+              example: |-
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43497","date":"2023-04-10T07:22:24.510+00:00","text":"string","@baseType":"Note","@type":"Note"}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43498","date":"2023-04-10T07:22:24.510+00:00","text":"string","@baseType":"Note","@type":"Note"}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43499","date":"2023-04-10T07:22:24.510+00:00","text":"string","@baseType":"Note","@type":"Note"}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d4349a","date":"2023-04-10T07:22:24.510+00:00","text":"string","@baseType":"Note","@type":"Note"}
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../../common/schemas/Note.openapi.yaml#/components/schemas/Note'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    head:
+      tags:
+      - Note API
+      summary: Get the number of notes
+      description: This method returns the number of notes matching the criteria.
+      parameters:
+      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      responses:
+        "200":
+          description: The number of notes
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    post:
+      tags:
+      - Note API
+      summary: Create a note
+      description: This method allows to create a note.
+      requestBody:
+        description: The note to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../../common/schemas/Note.openapi.yaml#/components/schemas/Note'
+      responses:
+        "201":
+          description: The created note
+          content:
+            application/json:
+              schema:
+                $ref: '../../common/schemas/Note.openapi.yaml#/components/schemas/Note'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "409":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-409'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    delete:
+      tags:
+      - Note API
+      summary: Delete all notes
+      description: This method allows to delete all notes matching the criteria.
+      parameters:
+        - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      responses:
+        "204":
+          description: Notes deleted
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    patch:
+      tags:
+      - Note API
+      summary: Update all notes
+      description: This method allows to update all notes matching the criteria.
+      parameters:
+      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      requestBody:
+        description: The fields to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../../common/schemas/Note.openapi.yaml#/components/schemas/Note'
+      responses:
+        "200":
+          description: Note updated
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "409":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-409'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+  /{id}:
+    parameters:
+    - $ref: '#/components/parameters/id'
+
+    get:
+      tags:
+      - Note API
+      summary: Get a Note
+      description: This method allows to get a note.
+      parameters:
+      - $ref: '../../common/parameters/fields.openapi.yaml#/components/parameters/fields'
+      responses:
+        "200":
+          description: The note
+          content:
+            application/json:
+              schema:
+                $ref: '../../common/schemas/Note.openapi.yaml#/components/schemas/Note'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "404":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-404'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    put:
+      tags:
+      - Note API
+      summary: Update a note
+      description: This method allows to update a note.
+      requestBody:
+        description: The note to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../../common/schemas/Note.openapi.yaml#/components/schemas/Note'
+      responses:
+        "200":
+          description: The updated note
+          content:
+            application/json:
+              schema:
+                $ref: '../../common/schemas/Note.openapi.yaml#/components/schemas/Note'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "404":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-404'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "409":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-409'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    delete:
+      tags:
+      - Note API
+      summary: Delete a note
+      description: This method allows to delete a note.
+      responses:
+        "204":
+          description: Note deleted
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "404":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-404'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      description: The note id
+      required: true
+      schema:
+        type: string

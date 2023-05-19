@@ -1,0 +1,36 @@
+openapi: 3.0.3
+
+info:
+  title: RelatedEntity
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  schemas:
+    RelatedEntity:
+      description: A reference to an entity,
+        where the type of the entity is not known in advance.
+      externalDocs:
+        url: https://datamodel.tmforum.org/en/latest/Common/RelatedEntity
+      required:
+      - id
+      - role
+      - '@referredType'
+      allOf:
+        - $ref: './EntityRef.openapi.yaml#/components/schemas/EntityRef'
+      properties:
+        '@type':
+          default: RelatedEntity
+          example: RelatedEntity
+        '@baseType':
+          default: RelatedEntity
+          example: RelatedEntity
+        id: {}
+        '@referredType': {}
+        role:
+          description: The role of an entity.
+          type: string

@@ -1,0 +1,77 @@
+openapi: 3.0.3
+
+info:
+  title: Attachment
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  schemas:
+    Attachment:
+      description: An attachment is a file that is attached to an entity.
+      externalDocs:
+        url: https://datamodel.tmforum.org/en/latest/Common/EntityAttachment
+      allOf:
+        - $ref: './StatusEntity.openapi.yaml#/components/schemas/StatusEntity'
+      required:
+        - name
+      properties:
+        '@type':
+          default: EntityAttachment
+          example: EntityAttachment
+        '@baseType':
+          default: EntityAttachment
+          example: EntityAttachment
+        name:
+          description: Name of the attachment.
+          type: string
+          example: image.jpg
+        description:
+          description: Description of the attachment.
+          type: string
+          example: Image of the product
+        mimeType:
+          description: The mime type of the attachment.
+          type: string
+          readOnly: true
+          example: image/jpeg
+        size:
+          description: The size of the attachment in bytes.
+          type: integer
+          format: int64
+          readOnly: true
+        uri:
+          description: Uniform Resource Identifier (URI) of the attachment.
+          type: string
+          readOnly: true
+        relatedEntity:
+          description: The entities related to the attachment.
+          type: array
+          items:
+            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+          readOnly: true
+        relatedParty:
+          description: The parties related to the attachment.
+          type: array
+          items:
+            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+          readOnly: true
+        md5:
+          description: The MD5 hash of the attachment.
+          type: string
+          readOnly: true
+          example: 24ac5310315b1687111551f6646456d1
+        sha1:
+          description: The SHA1 hash of the attachment.
+          type: string
+          readOnly: true
+          example: 92175a2c231f31ba757bc8e7620b7168707277ba
+        sha256:
+          description: The SHA256 hash of the attachment.
+          type: string
+          readOnly: true
+          example: 8cf1bc0fca7f4158b8eb807be15fd7fd21bfe52d956ce3ede1511671c97dad61

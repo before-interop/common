@@ -1,0 +1,53 @@
+openapi: 3.0.3
+
+info:
+  title: Note
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  schemas:
+    Note:
+      description: A note is a text that can be attached to an entity.
+      externalDocs:
+        url: https://datamodel.tmforum.org/en/latest/Common/Note
+      allOf:
+        - $ref: './Entity.openapi.yaml#/components/schemas/Entity'
+      properties:
+        '@type':
+          default: Note
+          example: Note
+        '@baseType':
+          default: Note
+          example: Note
+        '@schemaLocation':
+          default: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Note.schema.json
+          example: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Note.schema.json
+        text:
+          description: The text of the note.
+          type: string
+        date:
+          description: The date the note was created.
+          type: string
+          format: date-time
+          readOnly: true
+        author:
+          description: The author of the note.
+          type: string
+          readOnly: true
+        relatedEntity:
+          description: The entities related to the attachment.
+          type: array
+          items:
+            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+          readOnly: true
+        relatedParty:
+          description: The parties related to the attachment.
+          type: array
+          items:
+            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+          readOnly: true

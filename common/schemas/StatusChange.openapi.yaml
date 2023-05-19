@@ -1,0 +1,48 @@
+openapi: 3.0.3
+
+info:
+  title: StatusChange
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  schemas:
+    StatusChange:
+      description: Holds the status notification reasons
+        and associated date the status changed.
+
+        Populated by the server
+      externalDocs:
+        url: https://datamodel.tmforum.org/en/latest/Common/StatusChange
+      allOf:
+        - $ref: './Extensible.openapi.yaml#/components/schemas/Extensible'
+      required:
+      - changeDate
+      - status
+      properties:
+        '@type':
+          default: StatusChange
+          example: StatusChange
+        '@baseType':
+          default: StatusChange
+          example: StatusChange
+        '@schemaLocation':
+          default: https://raw.githubusercontent.com/tmforum-rand/schemas/candidates/Common/StatusChange.schema.json
+          example: https://raw.githubusercontent.com/tmforum-rand/schemas/candidates/Common/StatusChange.schema.json
+        changeDate:
+          description: The date and time the status changed.
+          type: string
+          format: date-time
+          readOnly: true
+        changeReason:
+          description: The reason why the status changed.
+          type: string
+          readOnly: true
+        status:
+          description: The status of the entity.
+          type: string
+          readOnly: true

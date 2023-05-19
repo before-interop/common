@@ -1,0 +1,79 @@
+openapi: 3.0.3
+
+info:
+  title: Error Responses
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  responses:
+    Error-400:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+    Error-401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+    Error-403:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+    Error-404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+    Error-405:
+      description: Method Not Allowed
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+    Error-406:
+      description: Not Acceptable
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+    Error-409:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+    Error-500:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+    Error-501:
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+    Error-502:
+      description: Bad Gateway
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+    Error-503:
+      description: Service Unavailable
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'

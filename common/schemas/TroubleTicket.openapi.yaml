@@ -1,0 +1,100 @@
+openapi: 3.0.3
+
+info:
+  title: TroubleTicket
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  schemas:
+    TroubleTicket:
+      description: A trouble ticket is a record of an issue
+        that is created, tracked, and managed
+        by a trouble ticket management system
+      externalDocs:
+        url: https://datamodel.tmforum.org/en/latest/Common/TroubleTicket
+      type: object
+      properties:
+        '@type':
+          default: TroubleTicket
+          example: TroubleTicket
+        '@baseType':
+          default: TroubleTicket
+          example: TroubleTicket
+        '@schemaLocation':
+          default: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/TroubleTicket.schema.json
+          example: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/TroubleTicket.schema.json
+        description:
+          description: Description of the trouble or issue.
+          type: string
+        expectedResolutionDate:
+          description: The expected resolution date
+            determined by the trouble ticket system.
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        externalId:
+          description: Additional identifier coming from an external system.
+          type: string
+          nullable: true
+        name:
+          description: Name of the trouble ticket,
+            typically a short description
+            provided by the user that create the ticket
+          type: string
+        priority:
+          description: |
+            The priority of the trouble ticket and how quickly the issue should be resolved.
+
+            Example: Critical, High, Medium, Low.
+            The value is set by the ticket management system considering the severity, ticket type etc...
+          type: string
+          readOnly: true
+          nullable: true
+        relatedEntity:
+          description: An entity that is related to the ticket such as a bill, a product, etc.
+            The entity against which the ticket is associated.
+          type: array
+          items:
+            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+          readOnly: true
+          nullable: true
+        relatedParty:
+          description: The related party(ies) that are associated to the ticket.
+          type: array
+          items:
+            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+          readOnly: true
+          nullable: true
+        requestedResolutionDate:
+          description: The requested resolution date determined by the user.
+          type: string
+          format: date-time
+          nullable: true
+        resolutionDate:
+          description: The date on which the trouble ticket was resolved.
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        severity:
+          description: |
+            The severity of the issue.
+            Indicate the implication of the issue on the expected functionality
+            e.g. of a system, application, service etc..
+
+            Severity values can be for example : Critical, Major, Minor
+          type: string
+          nullable: true
+        ticketType:
+          description: The type of the trouble ticket.
+            e.g. incident, complain, request, etc.
+          type: string
+          nullable: true
+      allOf:
+        - $ref: './Entity.openapi.yaml#/components/schemas/Entity'

@@ -1,0 +1,414 @@
+openapi: 3.0.3
+
+info:
+  title: Attachment API
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  description: |
+    This API allows to manage attachments.
+
+    **Note**: This API is not yet implemented by TMF.
+
+    This API is only allowed for internal usage.
+    It is not exposed to the public.
+
+servers:
+- url: '{protocol}://{host}:{port}{basePath}/attachment'
+  variables:
+    protocol:
+      enum:
+      - https
+      - http
+      default: https
+    host:
+      default: localhost
+    port:
+      default: '8080'
+    basePath:
+      default: /api
+
+tags:
+- name: Attachment API
+
+paths:
+  /:
+    get:
+      tags:
+      - Attachment API
+      summary: List attachments
+      description: |
+        * If you use the `application/json` media type, the response will be a paginated list of attachments.
+        * If you use the `text/event-stream` media type, the response will be a stream of attachments.
+
+        **Note**:
+
+        * The stream way does not support pagination. So the `limit` and `offset` query parameters will be ignored.
+        * The paginated way will return a `206 Partial Content` response code.
+        * The output can contain extra fields that are not defined in the API.
+      parameters:
+      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/limit'
+      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/offset'
+      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/sort'
+      - $ref: '../../common/parameters/fields.openapi.yaml#/components/parameters/fields'
+      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      responses:
+        "200":
+          description: The list of attachments
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+            X-Result-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Result-Count'
+          content:
+            text/event-stream:
+              schema:
+                $ref: '../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment'
+              example: |-
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43497","date":"2023-04-10T07:22:24.510+00:00","text":"string","@baseType":"Note","@type":"Note"}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43498","date":"2023-04-10T07:22:24.510+00:00","text":"string","@baseType":"Note","@type":"Note"}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43499","date":"2023-04-10T07:22:24.510+00:00","text":"string","@baseType":"Note","@type":"Note"}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d4349a","date":"2023-04-10T07:22:24.510+00:00","text":"string","@baseType":"Note","@type":"Note"}
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    head:
+      tags:
+      - Attachment API
+      summary: Get the number of attachments
+      description: This method returns the number of attachments matching the criteria.
+      parameters:
+      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      responses:
+        "200":
+          description: The number of attachments
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    post:
+      tags:
+      - Attachment API
+      summary: Create a attachment
+      description: This method allows to create a attachment.
+      requestBody:
+        description: The attachment to create
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttachmentFormData'
+      responses:
+        "201":
+          description: The created attachment
+          content:
+            application/json:
+              schema:
+                $ref: '../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "409":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-409'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    delete:
+      tags:
+      - Attachment API
+      summary: Delete all attachments
+      description: This method allows to delete all attachments matching the criteria.
+      parameters:
+      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      responses:
+        "204":
+          description: Attachments deleted
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    patch:
+      tags:
+      - Attachment API
+      summary: Update all attachments
+      description: This method allows to update all attachments matching the criteria.
+      parameters:
+      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      requestBody:
+        description: The fields to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment'
+      responses:
+        "200":
+          description: Attachments updated
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "409":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-409'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+  /{id}:
+    parameters:
+    - $ref: '#/components/parameters/id'
+
+    get:
+      tags:
+      - Attachment API
+      summary: Get an attachment
+      description: This method allows to get a attachment.
+      parameters:
+      - $ref: '../../common/parameters/fields.openapi.yaml#/components/parameters/fields'
+      responses:
+        "200":
+          description: The attachment
+          content:
+            application/json:
+              schema:
+                $ref: '../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "404":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-404'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    put:
+      tags:
+      - Attachment API
+      summary: Update an attachment
+      description: This method allows to update an attachment.
+      requestBody:
+        description: The attachment to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment'
+      responses:
+        "200":
+          description: The updated attachment
+          content:
+            application/json:
+              schema:
+                $ref: '../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "404":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-404'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "409":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-409'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    delete:
+      tags:
+      - Attachment API
+      summary: Delete an attachment
+      description: This method allows to delete an attachment.
+      responses:
+        "204":
+          description: Attachment deleted
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "404":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-404'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+  /{id}/content:
+    parameters:
+    - $ref: '#/components/parameters/id'
+
+    get:
+      tags:
+      - Attachment API
+      summary: Download the content of an attachment
+      description: This method allows to download the content of an attachment.
+      parameters:
+      - $ref: '#/components/parameters/Range'
+      - $ref: '#/components/parameters/If-Match'
+      - $ref: '#/components/parameters/If-None-Match'
+      - $ref: '#/components/parameters/If-Modified-Since'
+      - $ref: '#/components/parameters/If-Unmodified-Since'
+      responses:
+        "200":
+          description: The content of the attachment
+          content:
+            application/octet-stream: {}
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "404":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-404'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+components:
+  schemas:
+    AttachmentFormData:
+      required:
+      - file
+      - attachment
+      type: object
+      properties:
+        file:
+          format: binary
+          description: The file to upload
+          type: string
+        attachment:
+          $ref: '../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment'
+
+  parameters:
+    id:
+      name: id
+      in: path
+      description: The attachment id
+      required: true
+      schema:
+        type: string
+    If-Match:
+      name: If-Match
+      in: header
+      schema:
+        type: string
+    If-Modified-Since:
+      name: If-Modified-Since
+      in: header
+      schema:
+        type: string
+    If-None-Match:
+      name: If-None-Match
+      in: header
+      schema:
+        type: string
+    If-Unmodified-Since:
+      name: If-Unmodified-Since
+      in: header
+      schema:
+        type: string
+    Range:
+      name: Range
+      in: header
+      description: The range of bytes to download.
+      schema:
+        type: string
+      example: bytes=0-100

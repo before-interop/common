@@ -1,0 +1,32 @@
+openapi: 3.0.3
+
+info:
+  title: EntityRef
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  schemas:
+    EntityRef:
+      description: A reference to an entity,
+        where the type of the entity is not known in advance.
+      externalDocs:
+        url: https://datamodel.tmforum.org/en/latest/Common/EntityRef
+      required:
+      - id
+      - '@referredType'
+      allOf:
+        - $ref: './Extensible.openapi.yaml#/components/schemas/Extensible'
+        - $ref: './Addressable.openapi.yaml#/components/schemas/Addressable'
+      properties:
+        id: {}
+        name:
+          description: Name of the related entity.
+          type: string
+        '@referredType':
+          description: Type of the related entity.
+          type: string

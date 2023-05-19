@@ -1,0 +1,54 @@
+openapi: 3.0.3
+
+info:
+  title: Entity
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+paths: {}
+
+components:
+  schemas:
+    Error:
+      description: Used when an API throws an Error,
+        typically with a HTTP error response-code (3xx, 4xx, 5xx)
+      type: object
+      required:
+        - code
+        - reason
+      properties:
+        '@type':
+          default: Error
+          example: Error
+        '@baseType':
+          default: Error
+          example: Error
+        '@schemaLocation':
+          default: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Error.schema.json
+          example: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Error.schema.json
+        code:
+          type: string
+          description: Application relevant detail, defined in the API or a common list.
+        reason:
+          type: string
+          description:
+            Explanation of the reason for the error which can be shown to a client user.
+          example: Please use a valid password
+        message:
+          type: string
+          description:
+            More details and corrective actions related to the error which can
+            be shown to a client user.
+        status:
+          type: string
+          description: HTTP Error code extension
+          example: 400-2
+        referenceError:
+          type: string
+          format: uri
+          description: URI of documentation describing the error.
+          example: https://docs.microsoft.com/en-us/windows/desktop/wmdm/error-codes
+      allOf:
+        - $ref: "./Entity.openapi.yaml#/components/schemas/Entity"

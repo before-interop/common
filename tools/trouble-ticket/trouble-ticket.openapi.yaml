@@ -1,0 +1,343 @@
+openapi: 3.0.3
+
+info:
+  title: TroubleTicket API
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  description: |
+    **TMF API Reference: TMF - 621 Trouble Ticket version 4.0.0**
+
+    The Trouble Ticket API provides a standardized client interface to
+    Trouble Ticket Management Systems for creating, tracking and managing
+    trouble tickets as a result of an issue or
+    problem identified by a customer or another system.
+
+    Examples of Trouble Ticket API originators (clients)
+    include CRM applications, network management or fault management systems,
+    or other Trouble Ticket management systems (e.g. B2B).
+
+    This API is only allowed for internal usage.
+    It is not exposed to the public.
+
+servers:
+- url: '{protocol}://{host}:{port}{basePath}/troubleTicket'
+  variables:
+    protocol:
+      enum:
+        - https
+        - http
+      default: https
+    host:
+      default: localhost
+    port:
+      default: '8080'
+    basePath:
+      default: /api
+
+tags:
+- name: Trouble Ticket API
+
+paths:
+  /:
+    get:
+      tags:
+      - Trouble Ticket API
+      summary: List trouble tickets
+      description: |
+        * If you use the `application/json` media type, the response will be a paginated list of trouble tickets.
+        * If you use the `text/event-stream` media type, the response will be a stream of trouble tickets.
+
+        **Note**:
+
+        * The stream way does not support pagination. So the `limit` and `offset` query parameters will be ignored.
+        * The paginated way will return a `206 Partial Content` response code.
+        * The output can contain extra fields that are not defined in the API.
+      parameters:
+      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/limit'
+      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/offset'
+      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/sort'
+      - $ref: '../../common/parameters/fields.openapi.yaml#/components/parameters/fields'
+      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      responses:
+        "200":
+          description: The list of trouble tickets
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+            X-Result-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Result-Count'
+          content:
+            text/event-stream:
+              schema:
+                $ref: '../../common/schemas/TroubleTicket.openapi.yaml#/components/schemas/TroubleTicket'
+              example: |-
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43497","creationDate":"2023-04-10T07:22:24.510+00:00","lastUpdate":null,"resolutionDate":null,"expectedResolutionDate":null,"name":"My new ticket","description":"string","priority":"string","severity":"string","externalId":"string","@baseType":"TroubleTicket","@type":"TroubleTicket","closed":false}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43498","creationDate":"2023-04-10T07:22:24.510+00:00","lastUpdate":null,"resolutionDate":null,"expectedResolutionDate":null,"name":"My new ticket","description":"string","priority":"string","severity":"string","externalId":"string","@baseType":"TroubleTicket","@type":"TroubleTicket","closed":false}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43499","creationDate":"2023-04-10T07:22:24.510+00:00","lastUpdate":null,"resolutionDate":null,"expectedResolutionDate":null,"name":"My new ticket","description":"string","priority":"string","severity":"string","externalId":"string","@baseType":"TroubleTicket","@type":"TroubleTicket","closed":false}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d4349a","creationDate":"2023-04-10T07:22:24.510+00:00","lastUpdate":null,"resolutionDate":null,"expectedResolutionDate":null,"name":"My new ticket","description":"string","priority":"string","severity":"string","externalId":"string","@baseType":"TroubleTicket","@type":"TroubleTicket","closed":false}
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '../../common/schemas/TroubleTicket.openapi.yaml#/components/schemas/TroubleTicket'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    head:
+      tags:
+      - Trouble Ticket API
+      summary: Get the number of trouble tickets
+      description: This method returns the number of trouble tickets matching the criteria.
+      parameters:
+      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      responses:
+        "200":
+          description: The number of trouble tickets
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    post:
+      tags:
+      - Trouble Ticket API
+      summary: Create a trouble ticket
+      description: This method allows to create a trouble ticket.
+      requestBody:
+        description: The trouble ticket to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../../common/schemas/TroubleTicket.openapi.yaml#/components/schemas/TroubleTicket'
+      responses:
+        "201":
+          description: The created trouble ticket
+          content:
+            application/json:
+              schema:
+                $ref: '../../common/schemas/TroubleTicket.openapi.yaml#/components/schemas/TroubleTicket'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "409":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-409'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    delete:
+      tags:
+      - Trouble Ticket API
+      summary: Delete all trouble tickets
+      description: This method allows to delete all trouble tickets matching the criteria.
+      parameters:
+      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      responses:
+        "204":
+          description: Trouble tickets deleted
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    patch:
+      tags:
+      - Trouble Ticket API
+      summary: Update all trouble tickets
+      description: This method allows to update all trouble tickets matching the criteria.
+      parameters:
+        - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      requestBody:
+        description: The fields to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../../common/schemas/TroubleTicket.openapi.yaml#/components/schemas/TroubleTicket'
+      responses:
+        "200":
+          description: Trouble tickets updated
+          headers:
+            X-Total-Count:
+              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "409":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-409'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+  /{id}:
+    parameters:
+    - $ref: '#/components/parameters/id'
+
+    get:
+      tags:
+      - Trouble Ticket API
+      summary: Get a trouble ticket
+      description: This method allows to get a trouble ticket.
+      parameters:
+      - $ref: '../../common/parameters/fields.openapi.yaml#/components/parameters/fields'
+      responses:
+        "200":
+          description: The trouble ticket
+          content:
+            application/json:
+              schema:
+                $ref: '../../common/schemas/TroubleTicket.openapi.yaml#/components/schemas/TroubleTicket'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "404":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-404'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    put:
+      tags:
+      - Trouble Ticket API
+      summary: Update a trouble ticket
+      description: This method allows to update a trouble ticket.
+      requestBody:
+        description: The trouble ticket to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '../../common/schemas/TroubleTicket.openapi.yaml#/components/schemas/TroubleTicket'
+      responses:
+        "200":
+          description: The updated trouble ticket
+          content:
+            application/json:
+              schema:
+                $ref: '../../common/schemas/TroubleTicket.openapi.yaml#/components/schemas/TroubleTicket'
+        "400":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "404":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-404'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "409":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-409'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+    delete:
+      tags:
+      - Trouble Ticket API
+      summary: Delete a trouble ticket
+      description: This method allows to delete a trouble ticket.
+      responses:
+        "204":
+          description: Trouble ticket deleted
+        "401":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
+        "403":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-403'
+        "404":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-404'
+        "406":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-406'
+        "500":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-500'
+        "501":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-501'
+        "502":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-502'
+        "503":
+          $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-503'
+
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      description: The trouble ticket id
+      required: true
+      schema:
+        type: string
