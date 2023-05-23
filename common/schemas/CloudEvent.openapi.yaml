@@ -1,0 +1,102 @@
+openapi: 3.0.3
+
+info:
+  title: CloudEvent
+  description: |
+    CloudEvent is a specification for describing event data in a common way.
+
+    CloudEvents seeks to dramatically simplify event declaration and delivery
+    across services, platforms, and beyond.
+
+    CloudEvents has received a large amount of industry interest,
+    ranging from major cloud providers to popular SaaS companies.
+
+    CloudEvents is hosted by the [Cloud Native Computing Foundation](https://cncf.io/) (CNCF)
+    and was approved as a Cloud Native sandbox level project on May 15, 2018
+    and as an incubator project on Oct 24, 2019.
+
+    For more information, see the [CloudEvents specification](https://github.com/cloudevents/spec).
+  version: 1.0.2
+
+paths: {}
+
+components:
+  schemas:
+    CloudEvent:
+      type: object
+      description: |
+        CloudEvent is a specification for describing event data in a common way.
+
+        For more information, see the [CloudEvents specification](https://github.com/cloudevents/spec).
+      required:
+        - specversion
+        - type
+        - source
+        - id
+      properties:
+        specversion:
+          type: string
+          description: The version of the CloudEvents specification which the event uses.
+          example: 1.0
+          minLength: 1
+        type:
+          type: string
+          description: Describes the type of event related to the originating occurrence.
+          example: com.github.pull.create
+          minLength: 1
+        source:
+          type: string
+          format: uri
+          description: Identifies the context in which an event happened.
+          example: https://github.com/cloudevents
+          minLength: 1
+        id:
+          type: string
+          description: A common identifier for the event.
+          example: A234-1234-1234
+          minLength: 1
+        time:
+          type: string
+          format: date-time
+          description: Timestamp of when the occurrence happened.
+            Must adhere to [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339).
+          example: 2018-04-05T17:31:00Z
+          minLength: 1
+        datacontenttype:
+          type: string
+          nullable: true
+          description: Content type of the data value.
+            Must adhere to [RFC 2046](https://datatracker.ietf.org/doc/html/rfc2046) format."
+          example: application/json
+          minLength: 1
+        dataschema:
+          type: string
+          nullable: true
+          format: uri
+          description: Identifies the schema that data adheres to.
+          example: http://cloudevents.io/schema.json
+          minLength: 1
+        subject:
+          type: string
+          nullable: true
+          description: Describes the subject of the event in the context of the event producer (identified by source).
+          example: mynewfile.jpg
+          minLength: 1
+        data:
+          oneOf:
+            - type: string
+            - type: object
+            - type: array
+            - type: number
+            - type: boolean
+            - type: integer
+          nullable: true
+          description: The event payload.
+          example: '{"hello": "world"}'
+        data_base64:
+          type: string
+          nullable: true
+          description: Base64 encoded event payload.
+            Must adhere to [RFC 4648](https://datatracker.ietf.org/doc/html/rfc4648).
+          example: eyJoZWxsbyI6ICJ3b3JsZCJ9
+          minLength: 1
