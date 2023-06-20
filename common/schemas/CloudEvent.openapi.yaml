@@ -18,8 +18,6 @@ info:
     For more information, see the [CloudEvents specification](https://github.com/cloudevents/spec).
   version: 1.0.2
 
-paths: {}
-
 components:
   schemas:
     CloudEvent:
