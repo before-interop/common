@@ -6,6 +6,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
+    identifier: Apache-2.0
   description: |
     **TMF API Reference: TMF - 621 Trouble Ticket version 4.0.0**
 
