@@ -1,0 +1,29 @@
+openapi: 3.1.0
+
+info:
+  title: Update parameters for decentralized entities
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+components:
+
+  headers:
+
+    ETag:
+      description: The version of the resource.
+      style: simple
+      schema:
+        type: string
+
+  parameters:
+
+    If-Match:
+      description: >
+        The ETag of the resource to update.
+        If the ETag does not match the current resource, the update will fail with a 412 Precondition Failed error.
+      in: header
+      required: true
+      schema:
+        format: string

@@ -243,6 +243,9 @@ paths:
             application/json:
               schema:
                 $ref: '../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment'
+          headers:
+            ETag:
+              $ref: '../../common/utils/update.openapi.yaml#/components/headers/ETag'
         "401":
           $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-401'
         "403":
@@ -272,6 +275,8 @@ paths:
           application/json:
             schema:
               $ref: '../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment'
+      parameters:
+        - $ref: '../../common/utils/update.openapi.yaml#/components/parameters/If-Match'
       responses:
         "200":
           description: The updated attachment
