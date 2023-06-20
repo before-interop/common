@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "GeographicPoint.schemas.json",
+  "title": "GeographicPoint",
+  "description": "A GeographicPoint defines a geographic point through coordinates.",
+  "definitions": {
+    "GeographicPoint": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The type of the coordinates system.",
+          "enum": [
+            "WGS84",
+            "RFG93",
+            "LAMB93",
+            "RGFG95",
+            "RGR92",
+            "RGM04",
+            "RGSPM06"
+          ]
+        },
+        "x": {
+          "type": "number",
+          "description": "x coordinate (usually Latitude or Easting)"
+        },
+        "y": {
+          "type": "number",
+          "description": "y coordinate (usually Longitude or Northing)"
+        },
+        "z": {
+          "type": "number",
+          "description": "z coordinate (usually Altitude or Elevation)"
+        }
+      },
+      "required": [
+        "type",
+        "x",
+        "y"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

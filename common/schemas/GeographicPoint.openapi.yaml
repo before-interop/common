@@ -1,0 +1,53 @@
+openapi: 3.1.0
+
+info:
+  title: GeographicPoint
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+components:
+  schemas:
+    GeographicPoint:
+      description: A GeographicPoint defines a geographic point through coordinates.
+      type: object
+      required:
+      - x
+      - y
+      - type
+      properties:
+        x:
+          type: number
+          format: float
+          description: x coordinate (usually Latitude or Easting)
+        y:
+          type: number
+          format: float
+          description: y coordinate (usually Longitude or Northing)
+        z:
+          type: number
+          format: float
+          description: z coordinate (usually Altitude or Elevation)
+        type:
+          type: string
+          enum:
+          - WGS84
+          - RFG93
+          - LAMB93
+          - RGFG95
+          - RGR92
+          - RGM04
+          - RGSPM06
+          description: |
+            The type of the coordinates system.
+
+            Allowed values are:
+
+            * `WGS84`: World Geodetic System 1984
+            * `RFG93`: Réseau Français de Géodésie 1993
+            * `LAMB93`: Lambert 93
+            * `RGFG95`: Réseau Géodésique Français Guyane 1995
+            * `RGR92`: Réseau Géodésique de la Réunion 1992
+            * `RGM04`: Réseau Géodésique de Mayotte 2004
+            * `RGSPM06`: Réseau Géodésique de Saint-Pierre et Miquelon 2006
