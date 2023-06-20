@@ -21,6 +21,7 @@ components:
   parameters:
 
     If-Match:
+      name: If-Match
       description: >
         The ETag of the resource to update.
         If the ETag does not match the current resource, the update will fail with a 412 Precondition Failed error.
