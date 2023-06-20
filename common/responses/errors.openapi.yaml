@@ -52,6 +52,15 @@ components:
         application/json:
           schema:
             $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+    Error-412:
+      description: Precondition Failed
+
+        This error is returned when the precondition specified in the `If-Match` header does not match the current resource.
+        In general, this happens when the resource has been updated since it was last retrieved.
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
     Error-500:
       description: Internal Server Error
       content:
