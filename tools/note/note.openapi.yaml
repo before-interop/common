@@ -139,6 +139,9 @@ paths:
             application/json:
               schema:
                 $ref: '../../common/schemas/Note.openapi.yaml#/components/schemas/Note'
+          headers:
+            ETag:
+              $ref: '../../common/utils/update.openapi.yaml#/components/headers/ETag'
         "400":
           $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
         "401":

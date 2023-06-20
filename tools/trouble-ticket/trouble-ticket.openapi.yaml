@@ -146,6 +146,9 @@ paths:
             application/json:
               schema:
                 $ref: '../../common/schemas/TroubleTicket.openapi.yaml#/components/schemas/TroubleTicket'
+          headers:
+            ETag:
+              $ref: '../../common/utils/update.openapi.yaml#/components/headers/ETag'
         "400":
           $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
         "401":
