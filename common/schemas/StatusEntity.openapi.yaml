@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 
 info:
   title: StatusEntity
@@ -31,6 +31,9 @@ components:
           nullable: false
         status:
           description: The condition of an entity, identified through a code.
+          type: string
+        statusChangeReason:
+          description: The reason why the status changed.
           type: string
         statusChange:
           description: Holds the status notification reasons

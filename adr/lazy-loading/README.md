@@ -1,6 +1,6 @@
 # ADR - TMF Eager Loading vs Lazy Loading
 
-**Status**: Proposed
+**Status**: Accepted
 
 This ADR must determine if we must use the standard TMF way (eager loading)
 or lazy loading for nested resources.

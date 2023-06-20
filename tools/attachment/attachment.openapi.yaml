@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.1.0
 
 info:
   title: Attachment API
@@ -48,19 +48,19 @@ paths:
         * The paginated way will return a `206 Partial Content` response code.
         * The output can contain extra fields that are not defined in the API.
       parameters:
-      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/limit'
-      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/offset'
-      - $ref: '../../common/parameters/paginate.openapi.yaml#/components/parameters/sort'
-      - $ref: '../../common/parameters/fields.openapi.yaml#/components/parameters/fields'
-      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      - $ref: '../../common/utils/paginate.openapi.yaml#/components/parameters/limit'
+      - $ref: '../../common/utils/paginate.openapi.yaml#/components/parameters/offset'
+      - $ref: '../../common/utils/paginate.openapi.yaml#/components/parameters/sort'
+      - $ref: '../../common/utils/fields.openapi.yaml#/components/parameters/fields'
+      - $ref: '../../common/utils/filters.openapi.yaml#/components/parameters/filters'
       responses:
         "200":
           description: The list of attachments
           headers:
             X-Total-Count:
-              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+              $ref: '../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count'
             X-Result-Count:
-              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Result-Count'
+              $ref: '../../common/utils/paginate.openapi.yaml#/components/headers/X-Result-Count'
           content:
             text/event-stream:
               schema:
@@ -98,13 +98,13 @@ paths:
       summary: Get the number of attachments
       description: This method returns the number of attachments matching the criteria.
       parameters:
-      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      - $ref: '../../common/utils/filters.openapi.yaml#/components/parameters/filters'
       responses:
         "200":
           description: The number of attachments
           headers:
             X-Total-Count:
-              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+              $ref: '../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count'
         "400":
           $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
         "401":
@@ -164,13 +164,13 @@ paths:
       summary: Delete all attachments
       description: This method allows to delete all attachments matching the criteria.
       parameters:
-      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      - $ref: '../../common/utils/filters.openapi.yaml#/components/parameters/filters'
       responses:
         "204":
           description: Attachments deleted
           headers:
             X-Total-Count:
-              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+              $ref: '../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count'
         "400":
           $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
         "401":
@@ -192,7 +192,7 @@ paths:
       summary: Update all attachments
       description: This method allows to update all attachments matching the criteria.
       parameters:
-      - $ref: '../../common/parameters/filters.openapi.yaml#/components/parameters/filters'
+      - $ref: '../../common/utils/filters.openapi.yaml#/components/parameters/filters'
       requestBody:
         description: The fields to update
         required: true
@@ -205,7 +205,7 @@ paths:
           description: Attachments updated
           headers:
             X-Total-Count:
-              $ref: '../../common/headers/paginate.openapi.yaml#/components/headers/X-Total-Count'
+              $ref: '../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count'
         "400":
           $ref: '../../common/responses/errors.openapi.yaml#/components/responses/Error-400'
         "401":
@@ -235,7 +235,7 @@ paths:
       summary: Get an attachment
       description: This method allows to get a attachment.
       parameters:
-      - $ref: '../../common/parameters/fields.openapi.yaml#/components/parameters/fields'
+      - $ref: '../../common/utils/fields.openapi.yaml#/components/parameters/fields'
       responses:
         "200":
           description: The attachment

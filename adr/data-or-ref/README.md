@@ -1,6 +1,6 @@
 # ADR - Send data or external reference
 
-**Status**: Proposed
+**Status**: Accepted
 
 This ADR must determine if we must send data or an external reference.
 

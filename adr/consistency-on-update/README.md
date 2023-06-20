@@ -1,6 +1,6 @@
 # ADR - Consistency on update operations
 
-**Status**: Proposed
+**Status**: Accepted
 
 This ADR must determine if we allow or not update operations on old entity versions.
 
@@ -110,3 +110,20 @@ TODO
 ## Negative Consequences
 
 TODO
+
+
+
+```mermaid
+sequenceDiagram
+  Actor A as User A
+  Actor B as User B
+  participant S as API
+
+  A->>S: POST /{resource}
+  S->>A: 201 OK
+
+  B->>S: PUT /{resource}/{resourceId}
+  S->>B: 200 OK
+
+  S->>A: POST /{resource}/{resourceId}/events
+```

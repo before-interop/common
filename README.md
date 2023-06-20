@@ -4,7 +4,7 @@ Common components for ARCEP TMF based projects.
 
 ## Tool APIs
 
-Swagger documentation for the tool APIs is available at [https://ggrebert.github.io/before-interop-common/](https://ggrebert.github.io/before-interop-common/).
+Swagger documentation for the tool APIs is available at [https://before-interop.github.io/common/](https://before-interop.github.io/common/).
 
 ## Usage
 
@@ -13,7 +13,7 @@ Swagger documentation for the tool APIs is available at [https://ggrebert.github
 ```yaml
 responses:
   '400':
-    $ref: https://raw.githubusercontent.com/ggrebert/before-interop-common/main/common/responses/errors.openapi.yaml#/components/responses/Error-400
+    $ref: https://raw.githubusercontent.com/before-interop/common/main/common/responses/errors.openapi.yaml#/components/responses/Error-400
 ```
 
 ### Extend a component
@@ -23,7 +23,7 @@ components:
   schemas:
     MyObject:
       allOf:
-        - $ref: https://raw.githubusercontent.com/ggrebert/before-interop-common/main/common/schemas/Entity.openapi.yaml#/components/schemas/Entity
+        - $ref: https://raw.githubusercontent.com/before-interop/common/main/common/schemas/Entity.openapi.yaml#/components/schemas/Entity
       properties:
         myProperty:
           type: string

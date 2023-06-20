@@ -1,6 +1,6 @@
 # ADR - CloudEvent or TMF Event
 
-**Status**: Proposed
+**Status**: Accepted
 
 This ADR must determine if we must use CloudEvent or TMF Event
 to send business events between operators.
