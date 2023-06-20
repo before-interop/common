@@ -1,0 +1,16 @@
+openapi: 3.1.0
+
+info:
+  title: Arcep
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+components:
+  schemas:
+    codeOperateurArcep:
+      description: Code opérateur ARCEP aussi appelé identifiant CE (Identidiant de communications électroniques)
+      type: string
+      pattern: '^[A-Z]{4}$'
+      example: FTEL
