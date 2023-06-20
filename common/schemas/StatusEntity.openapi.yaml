@@ -33,6 +33,9 @@ components:
         statusChangeReason:
           description: The reason why the status changed.
           type: string
+        statusChangeDetails:
+          description: The details of the status change.
+          type: string
         statusChange:
           description: Holds the status notification reasons
             and associated date the status changed.
