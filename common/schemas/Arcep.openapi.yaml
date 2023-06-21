@@ -10,8 +10,52 @@ info:
 
 components:
   schemas:
-    codeOperateurArcep:
+    CodeOperateurArcep:
       description: Code opérateur ARCEP aussi appelé identifiant CE (Identidiant de communications électroniques)
       type: string
-      pattern: '^[A-Z]{4}$'
+      pattern: '^[A-Z0-9]{4}$'
       example: FTEL
+
+    PM:
+      description: Point de Mutualisation
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          description: Identifiant du PM
+          type: string
+          example: FTEL-PM-00000000000000
+        geographicLocations:
+          description: Localisation géographique du PM
+          type: array
+          items:
+            $ref: '#/components/schemas/GeographicPoint'
+
+    PBO:
+      description: Point de Branchement Optique
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          description: Identifiant du PBO
+          type: string
+          example: FTEL-PBO-00000000000000
+        pm:
+          $ref: '#/components/schemas/PM'
+
+    PTO:
+      description: Point de Terminaison Optique
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          description: Identifiant du PTO
+          type: string
+          example: FTEL-PTO-00000000000000
+        pm:
+          $ref: '#/components/schemas/PM'
+        pbo:
+          $ref: '#/components/schemas/PBO'
