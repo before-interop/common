@@ -17,7 +17,15 @@ components:
       example: FTEL
 
     PM:
-      description: Point de Mutualisation
+      description: |
+        Point de Mutualisation.
+
+        Point d'extrémité d'une ou de plusieurs lignes au niveau duquel la personne établissant ou ayant établi
+        dans un immeuble bâti ou exploitant une ligne de communications électroniques à très haut débit en fibre optique
+        donne accès à des opérateurs à ces lignes en vue de fournir des services de communications électroniques
+        aux utilisateurs finals correspondants, conformément à l'article [L. 34-8-3] du code des postes et des communications électroniques.
+
+        [L. 34-8-3]: https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043545273
       type: object
       required:
         - id
@@ -33,7 +41,15 @@ components:
             $ref: '#/components/schemas/GeographicPoint'
 
     PBO:
-      description: Point de Branchement Optique
+      description: |
+        Point de Branchement Optique.
+
+        Dans les immeubles de plusieurs logements ou locaux à usage professionnel comprenant une colonne montante,
+        équipement généralement situé dans les boîtiers d'étage de la colonne montante qui permet de raccorder le
+        câblage vertical avec le câble de branchement.
+        Le point de branchement optique peut également se trouver à l'extérieur de l'habitat à proximité immédiate
+        du logement; dans ce cas, il permet de raccorder le câblage installé en amont dans le réseau avec le câble
+        de branchement.
       type: object
       required:
         - id
@@ -42,11 +58,16 @@ components:
           description: Identifiant du PBO
           type: string
           example: FTEL-PBO-00000000000000
-        pm:
-          $ref: '#/components/schemas/PM'
 
     PTO:
-      description: Point de Terminaison Optique
+      description: |
+        Point de Terminaison Optique.
+
+        Extrémité de la ligne sur laquelle porte l'obligation d'accès imposée
+        par les décisions [n° 2009-1106] et [n° 2010-1312].
+
+        [n° 2009-1106]: https://www.arcep.fr/uploads/tx_gsavis/09-1106.pdf
+        [n° 2010-1312]: https://www.arcep.fr/uploads/tx_gsavis/10-1312.pdf
       type: object
       required:
         - id
@@ -55,7 +76,3 @@ components:
           description: Identifiant du PTO
           type: string
           example: FTEL-PTO-00000000000000
-        pm:
-          $ref: '#/components/schemas/PM'
-        pbo:
-          $ref: '#/components/schemas/PBO'
