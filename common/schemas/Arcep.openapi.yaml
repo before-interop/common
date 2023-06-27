@@ -27,18 +27,68 @@ components:
 
         [L. 34-8-3]: https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043545273
       type: object
-      required:
-        - id
       properties:
         id:
           description: Identifiant du PM
           type: string
+          maxLength: 20
           example: FTEL-PM-00000000000000
+        address:
+          $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
         geographicLocations:
           description: Localisation géographique du PM
           type: array
           items:
-            $ref: '#/components/schemas/GeographicPoint'
+            $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
+        status:
+          description: Statut du PM
+          type: string
+          enum:
+            - PLANNED
+            - DEPLOYING
+            - DEPLOYED
+            - ABANDONED
+          example: PLANNED
+        deploymentDate:
+          description: |
+            Date de déploiement du PM.
+
+            Effective si le statut du PM est DEPLOYED.
+            Sinon prévisionnel.
+          type: string
+          format: date
+          example: 2020-01-01
+        commissioningDate:
+          description: |
+            Date de mise en service du PM
+            correspondant à la date de fin du délai de prévenance réglementaire
+            sur le point de mutualisation.
+
+            Effective si le statut du PM est DEPLOYED.
+            Sinon prévisionnel.
+          type: string
+          format: date
+          example: 2020-01-01
+        note:
+          description: |
+            Note sur le PM.
+
+            Ce champ permet à l'OI de d'expliciter si besoin la localisation du PM.
+          type: string
+          example: PM en cours de déploiement
+        capacityMax:
+          type: integer
+          description: |
+            Capacité maximale du PM.
+
+            Nombre maximal de lignes pouvant être raccordées au PM.
+            Ce champ est renseigné si le PM est déployé.
+        housingsNumber:
+          type: integer
+          description: |
+            Nombre de lignes raccordées au PM.
+
+            Ce champ est renseigné si le PM est déployé.
 
     PBO:
       description: |

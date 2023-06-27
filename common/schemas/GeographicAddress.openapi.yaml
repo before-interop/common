@@ -14,7 +14,7 @@ components:
       description: |
         Structured textual way of describing how to find a Property in an urban area (country properties are often defined differently).
       allOf:
-        - $ref: './Entity.openapi.yaml#/components/schemas/Entity'
+        - $ref: './Addressable.openapi.yaml#/components/schemas/Addressable'
       properties:
         city:
           type: string
@@ -69,6 +69,32 @@ components:
             alley, avenue, boulevard, brae, crescent, drive, highway, lane, terrace, parade, place, tarn, way, wharf, ...
 
             Correspond à la propriété `type_voie` de l'IPE.
+        code_insee:
+          type: string
+          description: |
+            Code INSEE de la commune.
+
+            Correspond à la propriété `code_insee` de l'IPE.
+        code_hexacle:
+          type: string
+          description: |
+            Code Hexacle de la commune.
+
+            Correspond à la propriété `code_hexacle` de l'IPE.
+        code_hexavia:
+          type: string
+          description: |
+            Code Hexavia de la commune.
+
+            Correspond à la propriété `code_hexavia` de l'IPE.
+        code_rivoli:
+          type: string
+          description: |
+            Code Rivoli de la commune.
+
+            Correspond à la propriété `code_rivoli` de l'IPE.
+        code_ban:
+          type: string
         geographicLocations:
           type: array
           items:
