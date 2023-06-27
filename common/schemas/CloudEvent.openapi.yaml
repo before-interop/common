@@ -21,6 +21,8 @@ info:
 components:
   schemas:
     CloudEvent:
+      # the properties `data` and `data_base64` are commented out
+      # because they are must be defined in the business API specification
       type: object
       description: |
         CloudEvent is a specification for describing event data in a common way.
@@ -62,39 +64,36 @@ components:
           minLength: 1
         datacontenttype:
           type: string
-          nullable: true
           description: Content type of the data value.
             Must adhere to [RFC 2046](https://datatracker.ietf.org/doc/html/rfc2046) format."
           example: application/json
           minLength: 1
         dataschema:
           type: string
-          nullable: true
           format: uri
           description: Identifies the schema that data adheres to.
           example: http://cloudevents.io/schema.json
           minLength: 1
         subject:
           type: string
-          nullable: true
           description: Describes the subject of the event in the context of the event producer (identified by source).
           example: mynewfile.jpg
           minLength: 1
-        data:
-          oneOf:
-            - type: string
-            - type: object
-            - type: array
-            - type: number
-            - type: boolean
-            - type: integer
-          nullable: true
-          description: The event payload.
-          example: '{"hello": "world"}'
-        data_base64:
-          type: string
-          nullable: true
-          description: Base64 encoded event payload.
-            Must adhere to [RFC 4648](https://datatracker.ietf.org/doc/html/rfc4648).
-          example: eyJoZWxsbyI6ICJ3b3JsZCJ9
-          minLength: 1
+        # data:
+        #   oneOf:
+        #     - type: string
+        #     - type: object
+        #     - type: array
+        #     - type: number
+        #     - type: boolean
+        #     - type: integer
+        #   nullable: true
+        #   description: The event payload.
+        #   example: '{"hello": "world"}'
+        # data_base64:
+        #   type: string
+        #   nullable: true
+        #   description: Base64 encoded event payload.
+        #     Must adhere to [RFC 4648](https://datatracker.ietf.org/doc/html/rfc4648).
+        #   example: eyJoZWxsbyI6ICJ3b3JsZCJ9
+        #   minLength: 1
