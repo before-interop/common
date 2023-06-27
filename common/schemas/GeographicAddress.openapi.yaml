@@ -14,7 +14,7 @@ components:
       description: |
         Structured textual way of describing how to find a Property in an urban area (country properties are often defined differently).
       allOf:
-        - $ref: './Addressable.openapi.yaml#/components/schemas/Addressable'
+        - $ref: './Extensible.openapi.yaml#/components/schemas/Extensible'
       properties:
         city:
           type: string
