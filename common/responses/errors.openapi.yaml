@@ -10,6 +10,12 @@ info:
 
 components:
   responses:
+    default:
+      description: Default error response
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
     Error-400:
       description: Bad Request
       content:
