@@ -95,10 +95,3 @@ components:
             Correspond à la propriété `code_rivoli` de l'IPE.
         code_ban:
           type: string
-        geographicLocations:
-          type: array
-          items:
-            $ref: './GeographicPoint.openapi.yaml#/components/schemas/GeographicPoint'
-          description: |
-            Geographic location of the address.
-            This is a list of geographic locations, each of which may be associated with a different coordinate system.
