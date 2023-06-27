@@ -103,6 +103,31 @@ components:
           description: Identifiant du PBO
           type: string
           example: FTEL-PBO-00000000000000
+        commissioningDate:
+          description: |
+            Date de mise en service du PBO
+            correspondant à la date de fin du délai de prévenance réglementaire
+            sur le point de branchement optique.
+
+            Effective si le statut du PBO est DEPLOYED.
+            Sinon prévisionnel.
+          type: string
+          format: date
+          example: 2020-01-01
+        housingsNumber:
+          description: |
+            Nombre de lignes raccordées au PBO.
+
+            Ce champ est renseigné si le PBO est déployé.
+          type: integer
+        type:
+          type: string
+          description: Type de PBO.
+          example: AERIEN POTEAU ENEDIS
+        connectionType:
+          type: string
+          description: Type de raccordement du PBO.
+          example: IMMEUBLE GOULOTTE OU APPARENT
 
     PTO:
       description: |
