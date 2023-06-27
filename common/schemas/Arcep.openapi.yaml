@@ -61,7 +61,7 @@ components:
             correspondant à la date de fin du délai de prévenance réglementaire
             sur le point de mutualisation.
 
-            Effective si le statut du PM est DEPLOYED.
+            Effective si le statut du PM est `DEPLOYED`.
             Sinon prévisionnel.
           type: string
           format: date
@@ -111,7 +111,7 @@ components:
             correspondant à la date de fin du délai de prévenance réglementaire
             sur le point de branchement optique.
 
-            Effective si le statut du PBO est DEPLOYED.
+            Effective si le statut du PBO est `DEPLOYED`.
             Sinon prévisionnel.
           type: string
           format: date
