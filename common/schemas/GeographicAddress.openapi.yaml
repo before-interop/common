@@ -48,18 +48,12 @@ components:
         streetNr:
           type: string
           description: |
-            Number identifying a specific property on a public street. It may be combined with streetNrLast for ranged addresses.
+            Number identifying a specific property on a public street.
 
             Correspond à la propriété `numero_voie` de l'IPE.
-        streetNrLast:
-          type: string
-          description: Last number in a range of street numbers allocated to a property
         streetNrSuffix:
           type: string
           description: the first street number suffix
-        streetNrLastSuffix:
-          type: string
-          description: the last street number suffix for a ranged address
         streetSuffix:
           type: string
           description: A modifier denoting a relative direction
