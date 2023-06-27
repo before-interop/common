@@ -35,11 +35,6 @@ components:
           example: FTEL-PM-00000000000000
         address:
           $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
-        geographicLocations:
-          description: Localisation géographique du PM
-          type: array
-          items:
-            $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
         status:
           description: Statut du PM
           type: string
