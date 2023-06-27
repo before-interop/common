@@ -17,8 +17,6 @@ components:
         url: https://datamodel.tmforum.org/en/latest/Common/RelatedEntity
       required:
       - id
-      - role
-      - '@referredType'
       allOf:
         - $ref: './EntityRef.openapi.yaml#/components/schemas/EntityRef'
       properties:

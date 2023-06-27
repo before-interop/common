@@ -148,3 +148,94 @@ components:
           description: Identifiant du PTO
           type: string
           example: FTEL-PTO-00000000000000
+
+    Building:
+      description: |
+        Représente un immeuble du fichier IPE.
+
+        * L'`id` de l'immeuble est unique pour un OI. Il est unique par ligne du fichier IPE.
+        * La contrainte d'unicité d'une ligne et l'agrégation des champs suivant:
+          * `address.code_hexacle`
+          * `name` (nom du bâtiment)
+      allOf:
+        - $ref: ./Entity.openapi.yaml#/components/schemas/Entity
+      properties:
+        id:
+          maxLength: 20
+          description: Identifiant unique de l'immeuble.
+
+            Ce champ est nommé `IdentifiantImmeuble` dans le fichier IPE.
+        address:
+          $ref: ./GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
+        geographicLocation:
+          description: |
+            Coordonnées géographiques de l'immeuble.
+
+            Ce champs est l'agrégation des champs suivant du fichier IPE:
+            * `TypeProjectionGeographique`
+            * `CoordonneeImmeubleX`
+            * `CoordonneeImmeubleY`
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/GeographicPoint"
+        name:
+          description: |
+            Nom du bâtiment.
+
+            Ce champ est nommé `BatimentImmeuble` dans le fichier IPE.
+          type: string
+        type:
+          description: |
+            Type d'immeuble.
+
+            Ce champ est nommé `TypeImmeuble` dans le fichier IPE.
+          type: string
+          enum:
+            - PAVILLON
+            - IMMEUBLE
+        housingsNumber:
+          description: |
+            Nombre de logements cibles de l'immeuble.
+
+            Ce champ est nommé `NombreLogementsAdresseIPE` dans le fichier IPE.
+          type: integer
+        pm:
+          description: |
+            Point de Mutualisation du bâtiment.
+
+            Ce champ est nommé `IdentifiantPM` dans le fichier IPE.
+          $ref: '#/components/schemas/PM'
+        pbos:
+          description: Liste des PBOs du bâtiment.
+          type: array
+          items:
+            $ref: '#/components/schemas/PBO'
+
+    GeographicPoint:
+      allOf:
+        - $ref: ./GeographicPoint.openapi.yaml#/components/schemas/GeographicPoint
+      properties:
+        type:
+          description: |
+            The type of the coordinates system.
+
+            Allowed values are:
+
+            * `WGS84`: World Geodetic System 1984 (Longitude/Latitude)
+                Système de coordonnées utilisé par le GPS.
+                Il est le système français de référence pour la Guadeloupe et la Martinique.
+            * `RFG93`: (Lambert 93) Réseau Français métropolitain de Géodésie 1993 (Easting/Northing).
+            * `RGFG95`: Réseau Géodésique Français Guyane 1995 (Easting/Northing)
+            * `RGR92`: Réseau Géodésique de la Réunion 1992 (Easting/Northing)
+            * `RGM04`: Réseau Géodésique de Mayotte 2004 (Easting/Northing)
+            * `RGSPM06`: Réseau Géodésique de Saint-Pierre et Miquelon 2006 (Easting/Northing)
+
+            Correspond à la propriété `typeProjection` de l'building.
+          enum:
+            - WGS84
+            - RFG93
+            - RGFG95
+            - RGR92
+            - RGM04
+            - RGSPM06
