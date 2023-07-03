@@ -45,3 +45,14 @@ If you have a suggestion that would make this better, please fork the repo and c
 ## License
 
 Distribution of this project is governed by the Apache License, Version 2.0 (see [LICENSE](LICENSE) for more information).
+
+## Projects using this library
+
+It is not mandatory to list your project here,
+but it would be nice to see who is using this library.
+But the real added value is to notify you **when a breaking change is coming**.
+
+The following projects are using this library:
+
+* [AnomalieAdresse](https://github.com/before-interop/anomalieAdresse)
+* [Malfaçon](https://github.com/before-interop/malfacon)
