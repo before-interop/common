@@ -9,28 +9,28 @@ info:
     identifier: Apache-2.0
 
 servers:
-- url: '{protocol}://{host}:{port}{basePath}/event'
-  variables:
-    protocol:
-      enum:
-        - https
-        - http
-      default: https
-    host:
-      default: localhost
-    port:
-      default: '8080'
-    basePath:
-      default: /api
+  - url: "{protocol}://{host}:{port}{basePath}/event"
+    variables:
+      protocol:
+        enum:
+          - https
+          - http
+        default: https
+      host:
+        default: localhost
+      port:
+        default: "8080"
+      basePath:
+        default: /api
 
 tags:
-- name: Event API
+  - name: Event API
 
 paths:
   /:
     get:
       tags:
-        -  Event API
+        - Event API
       summary: List all events
       description: |
         List all events.
@@ -52,7 +52,7 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: '#/components/schemas/CloudEvent'
+                $ref: "#/components/schemas/CloudEvent"
               example: |-
                 data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43497","source":"//4950ae1c-2104-414e-b8b4-14fdd078a3ea","specversion":"1","type":"fr.interop.app.update"}
                 data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43498","source":"//4950ae1c-2104-414e-b8b4-14fdd078a3ea","specversion":"1","type":"fr.interop.app.update"}
@@ -62,7 +62,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CloudEvent'
+                  $ref: "#/components/schemas/CloudEvent"
         "400":
           $ref: ../../common/responses/errors.openapi.yaml#/components/responses/Error-400
         default:
@@ -70,7 +70,7 @@ paths:
 
     head:
       tags:
-        -  Event API
+        - Event API
       summary: Count all events
       description: |
         Count all events.
@@ -90,7 +90,7 @@ paths:
 
     post:
       tags:
-        -  Event API
+        - Event API
       summary: Create a new event
       description: |
         Create a new event.
@@ -101,14 +101,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CloudEvent'
+              $ref: "#/components/schemas/CloudEvent"
       responses:
         "201":
           description: The created event
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CloudEvent'
+                $ref: "#/components/schemas/CloudEvent"
         "400":
           $ref: ../../common/responses/errors.openapi.yaml#/components/responses/Error-400
         default:
@@ -116,7 +116,7 @@ paths:
 
     delete:
       tags:
-        -  Event API
+        - Event API
       summary: Delete all events
       description: |
         Delete all events.
