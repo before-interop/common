@@ -139,22 +139,22 @@ components:
     CloudEvent:
       allOf:
         - $ref: ../../common/schemas/CloudEvent.openapi.yaml#/components/schemas/CloudEvent
-    properties:
-      data:
-        oneOf:
-          - type: string
-          - type: object
-          - type: array
-          - type: number
-          - type: boolean
-          - type: integer
-        nullable: true
-        description: The event payload.
-        example: '{"hello": "world"}'
-      data_base64:
-        type: string
-        nullable: true
-        description: Base64 encoded event payload.
-          Must adhere to [RFC 4648](https://datatracker.ietf.org/doc/html/rfc4648).
-        example: eyJoZWxsbyI6ICJ3b3JsZCJ9
-        minLength: 1
+      properties:
+        data:
+          oneOf:
+            - type: string
+            - type: object
+            - type: array
+            - type: number
+            - type: boolean
+            - type: integer
+          nullable: true
+          description: The event payload.
+          example: '{"hello": "world"}'
+        data_base64:
+          type: string
+          nullable: true
+          description: Base64 encoded event payload.
+            Must adhere to [RFC 4648](https://datatracker.ietf.org/doc/html/rfc4648).
+          example: eyJoZWxsbyI6ICJ3b3JsZCJ9
+          minLength: 1
