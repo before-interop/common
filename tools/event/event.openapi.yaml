@@ -1,0 +1,160 @@
+openapi: 3.1.0
+
+info:
+  title: Event API
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+    identifier: Apache-2.0
+
+servers:
+- url: '{protocol}://{host}:{port}{basePath}/event'
+  variables:
+    protocol:
+      enum:
+        - https
+        - http
+      default: https
+    host:
+      default: localhost
+    port:
+      default: '8080'
+    basePath:
+      default: /api
+
+tags:
+- name: Event API
+
+paths:
+  /:
+    get:
+      tags:
+        -  Event API
+      summary: List all events
+      description: |
+        List all events.
+      operationId: listEvents
+      parameters:
+        - $ref: ../../common/utils/paginate.openapi.yaml#/components/parameters/limit
+        - $ref: ../../common/utils/paginate.openapi.yaml#/components/parameters/offset
+        - $ref: ../../common/utils/paginate.openapi.yaml#/components/parameters/sort
+        - $ref: ../../common/utils/fields.openapi.yaml#/components/parameters/fields
+        - $ref: ../../common/utils/filters.openapi.yaml#/components/parameters/filters
+      responses:
+        "200":
+          description: The list of events
+          headers:
+            X-Total-Count:
+              $ref: ../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count
+            X-Result-Count:
+              $ref: ../../common/utils/paginate.openapi.yaml#/components/headers/X-Result-Count
+          content:
+            text/event-stream:
+              schema:
+                $ref: '#/components/schemas/CloudEvent'
+              example: |-
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43497","source":"//4950ae1c-2104-414e-b8b4-14fdd078a3ea","specversion":"1","type":"fr.interop.app.update"}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43498","source":"//4950ae1c-2104-414e-b8b4-14fdd078a3ea","specversion":"1","type":"fr.interop.app.update"}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43499","source":"//4950ae1c-2104-414e-b8b4-14fdd078a3ea","specversion":"1","type":"fr.interop.app.update"}
+                data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d4349a","source":"//4950ae1c-2104-414e-b8b4-14fdd078a3ea","specversion":"1","type":"fr.interop.app.update"}
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CloudEvent'
+        "400":
+          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/Error-400
+        default:
+          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/default
+
+    head:
+      tags:
+        -  Event API
+      summary: Count all events
+      description: |
+        Count all events.
+      operationId: countEvents
+      parameters:
+        - $ref: ../../common/utils/filters.openapi.yaml#/components/parameters/filters
+      responses:
+        "200":
+          description: The number of events
+          headers:
+            X-Total-Count:
+              $ref: ../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count
+        "400":
+          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/Error-400
+        default:
+          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/default
+
+    post:
+      tags:
+        -  Event API
+      summary: Create a new event
+      description: |
+        Create a new event.
+      operationId: createEvent
+      requestBody:
+        description: The event to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloudEvent'
+      responses:
+        "201":
+          description: The created event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CloudEvent'
+        "400":
+          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/Error-400
+        default:
+          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/default
+
+    delete:
+      tags:
+        -  Event API
+      summary: Delete all events
+      description: |
+        Delete all events.
+      operationId: deleteEvents
+      parameters:
+        - $ref: ../../common/utils/filters.openapi.yaml#/components/parameters/filters
+      responses:
+        "204":
+          description: The events have been deleted
+          headers:
+            X-Total-Count:
+              $ref: ../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count
+        "400":
+          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/Error-400
+        default:
+          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/default
+
+components:
+  schemas:
+    CloudEvent:
+      allOf:
+        - $ref: ../../common/schemas/CloudEvent.openapi.yaml#/components/schemas/CloudEvent
+    properties:
+      data:
+        oneOf:
+          - type: string
+          - type: object
+          - type: array
+          - type: number
+          - type: boolean
+          - type: integer
+        nullable: true
+        description: The event payload.
+        example: '{"hello": "world"}'
+      data_base64:
+        type: string
+        nullable: true
+        description: Base64 encoded event payload.
+          Must adhere to [RFC 4648](https://datatracker.ietf.org/doc/html/rfc4648).
+        example: eyJoZWxsbyI6ICJ3b3JsZCJ9
+        minLength: 1
