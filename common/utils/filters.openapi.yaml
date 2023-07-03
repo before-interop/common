@@ -35,19 +35,35 @@ components:
 
         * `==`: equals (default)
 
+          alias: `eq`
+
         * `!=`: not equals
+
+          alias: `ne`, `neq`, `<>`, `!eq`
 
         * `>`: greater than
 
+          alias: `gt`
+
         * `>=`: greater than or equals
+
+          alias: `gte`
 
         * `<`: less than
 
+          alias: `lt`
+
         * `<=`: less than or equals
+
+          alias: `lte`
 
         * `=~`: regex match
 
+          alias: `re`, `regex`, `match`
+
         * `!~`: regex not match
+
+          alias: `nre`, `nregex`, `nmatch`
 
         * `in`: check if the value is in the list.
 
@@ -55,7 +71,11 @@ components:
 
         * `nin`: not in
 
+          alias: `!in`, `notin`
+
         * `is`: Check the nature of a property.
+
+          alias: `=`
 
           Allowed values are:
 
@@ -72,6 +92,8 @@ components:
           * `boolean`: the property must be a boolean
 
         * `nis`: Inverse of `is` operator
+
+          alias: `!`, `!is`, `nis`, `isnot`, `not`
 
         ---
 
