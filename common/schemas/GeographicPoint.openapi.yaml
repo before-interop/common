@@ -14,9 +14,9 @@ components:
       description: A GeographicPoint defines a geographic point through coordinates.
       type: object
       required:
-      - x
-      - y
-      - type
+        - x
+        - y
+        - type
       properties:
         x:
           type: number

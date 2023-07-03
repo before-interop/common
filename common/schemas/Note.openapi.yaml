@@ -15,15 +15,15 @@ components:
       externalDocs:
         url: https://datamodel.tmforum.org/en/latest/Common/Note
       allOf:
-        - $ref: './Entity.openapi.yaml#/components/schemas/Entity'
+        - $ref: "./Entity.openapi.yaml#/components/schemas/Entity"
       properties:
-        '@type':
+        "@type":
           default: Note
           example: Note
-        '@baseType':
+        "@baseType":
           default: Note
           example: Note
-        '@schemaLocation':
+        "@schemaLocation":
           default: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Note.schema.json
           example: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Note.schema.json
         text:
@@ -42,11 +42,11 @@ components:
           description: The entities related to the attachment.
           type: array
           items:
-            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+            $ref: "./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity"
           readOnly: true
         relatedParty:
           description: The parties related to the attachment.
           type: array
           items:
-            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+            $ref: "./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity"
           readOnly: true

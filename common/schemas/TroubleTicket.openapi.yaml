@@ -18,15 +18,15 @@ components:
         url: https://datamodel.tmforum.org/en/latest/Common/TroubleTicket
       type: object
       allOf:
-        - $ref: './StatusEntity.openapi.yaml#/components/schemas/StatusEntity'
+        - $ref: "./StatusEntity.openapi.yaml#/components/schemas/StatusEntity"
       properties:
-        '@type':
+        "@type":
           default: TroubleTicket
           example: TroubleTicket
-        '@baseType':
+        "@baseType":
           default: TroubleTicket
           example: TroubleTicket
-        '@schemaLocation':
+        "@schemaLocation":
           default: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/TroubleTicket.schema.json
           example: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/TroubleTicket.schema.json
         description:
@@ -58,18 +58,19 @@ components:
           readOnly: true
           nullable: true
         relatedEntity:
-          description: An entity that is related to the ticket such as a bill, a product, etc.
+          description:
+            An entity that is related to the ticket such as a bill, a product, etc.
             The entity against which the ticket is associated.
           type: array
           items:
-            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+            $ref: "./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity"
           readOnly: true
           nullable: true
         relatedParty:
           description: The related party(ies) that are associated to the ticket.
           type: array
           items:
-            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+            $ref: "./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity"
           readOnly: true
           nullable: true
         requestedResolutionDate:

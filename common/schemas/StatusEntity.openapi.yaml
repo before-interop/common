@@ -14,7 +14,7 @@ components:
       description: >
         A base schema for entities that have a status.
       allOf:
-        - $ref: './Entity.openapi.yaml#/components/schemas/Entity'
+        - $ref: "./Entity.openapi.yaml#/components/schemas/Entity"
       properties:
         creationDate:
           description: The date on which the entity was created.
@@ -44,5 +44,5 @@ components:
             Populated by the server
           type: array
           items:
-            $ref: './StatusChange.openapi.yaml#/components/schemas/StatusChange'
+            $ref: "./StatusChange.openapi.yaml#/components/schemas/StatusChange"
           readOnly: true

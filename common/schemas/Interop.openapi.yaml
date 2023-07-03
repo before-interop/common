@@ -13,7 +13,7 @@ components:
     CodeOperateurArcep:
       description: Code opérateur ARCEP aussi appelé identifiant CE (Identidiant de communications électroniques)
       type: string
-      pattern: '^[A-Z0-9]{4}$'
+      pattern: ^[A-Z0-9]{4}$
       example: FTEL
 
     PM:
@@ -205,12 +205,12 @@ components:
             Point de Mutualisation du bâtiment.
 
             Ce champ est nommé `IdentifiantPM` dans le fichier IPE.
-          $ref: '#/components/schemas/PM'
+          $ref: "#/components/schemas/PM"
         pbos:
           description: Liste des PBOs du bâtiment.
           type: array
           items:
-            $ref: '#/components/schemas/PBO'
+            $ref: "#/components/schemas/PBO"
 
     GeographicPoint:
       allOf:

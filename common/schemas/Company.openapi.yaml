@@ -10,7 +10,6 @@ info:
 
 components:
   schemas:
-
     Siren:
       description: |
         Le numéro SIREN (ou système d'identification du répertoire des entreprises)
@@ -19,7 +18,7 @@ components:
         Il s'agit d'un code unique et invariable tout au long de la vie de l'entreprise.
         Il se compose de neuf chiffres.
       type: string
-      pattern: "^[0-9]{9}$"
+      pattern: ^[0-9]{9}$
 
     Siret:
       description: |
@@ -29,7 +28,7 @@ components:
         Il se compose de 14 chiffres : les neuf chiffres du numéro SIREN + les cinq chiffres
         correspondant à un numéro NIC (numéro interne de classement).
       type: string
-      pattern: "^[0-9]{14}$"
+      pattern: ^[0-9]{14}$
 
     Company:
       type: object

@@ -16,18 +16,18 @@ components:
       externalDocs:
         url: https://datamodel.tmforum.org/en/latest/Common/RelatedEntity
       required:
-      - id
+        - id
       allOf:
-        - $ref: './EntityRef.openapi.yaml#/components/schemas/EntityRef'
+        - $ref: "./EntityRef.openapi.yaml#/components/schemas/EntityRef"
       properties:
-        '@type':
+        "@type":
           default: RelatedEntity
           example: RelatedEntity
-        '@baseType':
+        "@baseType":
           default: RelatedEntity
           example: RelatedEntity
         id: {}
-        '@referredType': {}
+        "@referredType": {}
         role:
           description: The role of an entity.
           type: string

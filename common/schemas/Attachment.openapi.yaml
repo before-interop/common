@@ -15,14 +15,14 @@ components:
       externalDocs:
         url: https://datamodel.tmforum.org/en/latest/Common/EntityAttachment
       allOf:
-        - $ref: './StatusEntity.openapi.yaml#/components/schemas/StatusEntity'
+        - $ref: "./StatusEntity.openapi.yaml#/components/schemas/StatusEntity"
       required:
         - name
       properties:
-        '@type':
+        "@type":
           default: EntityAttachment
           example: EntityAttachment
-        '@baseType':
+        "@baseType":
           default: EntityAttachment
           example: EntityAttachment
         name:
@@ -51,13 +51,13 @@ components:
           description: The entities related to the attachment.
           type: array
           items:
-            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+            $ref: "./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity"
           readOnly: true
         relatedParty:
           description: The parties related to the attachment.
           type: array
           items:
-            $ref: './RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity'
+            $ref: "./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity"
           readOnly: true
         md5:
           description: The MD5 hash of the attachment.

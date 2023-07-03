@@ -16,16 +16,16 @@ components:
       externalDocs:
         url: https://datamodel.tmforum.org/en/latest/Common/EntityRef
       required:
-      - id
-      - '@referredType'
+        - id
+        - "@referredType"
       allOf:
-        - $ref: './Extensible.openapi.yaml#/components/schemas/Extensible'
-        - $ref: './Addressable.openapi.yaml#/components/schemas/Addressable'
+        - $ref: "./Extensible.openapi.yaml#/components/schemas/Extensible"
+        - $ref: "./Addressable.openapi.yaml#/components/schemas/Addressable"
       properties:
         id: {}
         name:
           description: Name of the related entity.
           type: string
-        '@referredType':
+        "@referredType":
           description: Type of the related entity.
           type: string

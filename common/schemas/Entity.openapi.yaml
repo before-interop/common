@@ -16,8 +16,8 @@ components:
       type: object
       description: Base entity schema for use in TMForum Open-APIs
       allOf:
-        - $ref: './Extensible.openapi.yaml#/components/schemas/Extensible'
-        - $ref: './Addressable.openapi.yaml#/components/schemas/Addressable'
+        - $ref: "./Extensible.openapi.yaml#/components/schemas/Extensible"
+        - $ref: "./Addressable.openapi.yaml#/components/schemas/Addressable"
       properties:
         id:
           readOnly: true

@@ -18,18 +18,18 @@ components:
       externalDocs:
         url: https://datamodel.tmforum.org/en/latest/Common/StatusChange
       allOf:
-        - $ref: './Extensible.openapi.yaml#/components/schemas/Extensible'
+        - $ref: "./Extensible.openapi.yaml#/components/schemas/Extensible"
       required:
-      - changeDate
-      - status
+        - changeDate
+        - status
       properties:
-        '@type':
+        "@type":
           default: StatusChange
           example: StatusChange
-        '@baseType':
+        "@baseType":
           default: StatusChange
           example: StatusChange
-        '@schemaLocation':
+        "@schemaLocation":
           default: https://raw.githubusercontent.com/tmforum-rand/schemas/candidates/Common/StatusChange.schema.json
           example: https://raw.githubusercontent.com/tmforum-rand/schemas/candidates/Common/StatusChange.schema.json
         changeDate:

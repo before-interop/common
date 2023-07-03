@@ -15,49 +15,49 @@ components:
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-400:
       description: Bad Request
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-401:
       description: Unauthorized
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-403:
       description: Forbidden
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-404:
       description: Not Found
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-405:
       description: Method Not Allowed
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-406:
       description: Not Acceptable
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-409:
       description: Conflict
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-412:
       description: Precondition Failed
 
@@ -66,28 +66,28 @@ components:
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-500:
       description: Internal Server Error
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-501:
       description: Not Implemented
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-502:
       description: Bad Gateway
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
     Error-503:
       description: Service Unavailable
       content:
         application/json:
           schema:
-            $ref: '../schemas/Error.openapi.yaml#/components/schemas/Error'
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"

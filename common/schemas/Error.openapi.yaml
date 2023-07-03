@@ -18,13 +18,13 @@ components:
         - code
         - reason
       properties:
-        '@type':
+        "@type":
           default: Error
           example: Error
-        '@baseType':
+        "@baseType":
           default: Error
           example: Error
-        '@schemaLocation':
+        "@schemaLocation":
           default: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Error.schema.json
           example: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Error.schema.json
         code:
@@ -32,8 +32,7 @@ components:
           description: Application relevant detail, defined in the API or a common list.
         reason:
           type: string
-          description:
-            Explanation of the reason for the error which can be shown to a client user.
+          description: Explanation of the reason for the error which can be shown to a client user.
           example: Please use a valid password
         message:
           type: string

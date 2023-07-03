@@ -9,9 +9,7 @@ info:
     identifier: Apache-2.0
 
 components:
-
   headers:
-
     ETag:
       description: The version of the resource.
       style: simple
@@ -19,7 +17,6 @@ components:
         type: string
 
   parameters:
-
     If-Match:
       name: If-Match
       description: >

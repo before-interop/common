@@ -10,7 +10,6 @@ info:
 
 components:
   headers:
-
     X-Result-Count:
       description: Actual number of items returned
       style: simple
@@ -28,7 +27,6 @@ components:
         example: 42
 
   parameters:
-
     limit:
       name: limit
       in: query
