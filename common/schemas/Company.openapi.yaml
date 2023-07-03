@@ -1,0 +1,63 @@
+openapi: 3.1.0
+
+info:
+  title: Company
+  version: 2.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+    identifier: Apache-2.0
+
+components:
+  schemas:
+
+    Siren:
+      description: |
+        Le numéro SIREN (ou système d'identification du répertoire des entreprises)
+        sert à identifier l'entreprise en tant qu'entité.
+
+        Il s'agit d'un code unique et invariable tout au long de la vie de l'entreprise.
+        Il se compose de neuf chiffres.
+      type: string
+      pattern: "^[0-9]{9}$"
+
+    Siret:
+      description: |
+        Le numéro SIRET (ou système d'identification du répertoire des établissements)
+        identifie chaque établissement de l'entreprise.
+
+        Il se compose de 14 chiffres : les neuf chiffres du numéro SIREN + les cinq chiffres
+        correspondant à un numéro NIC (numéro interne de classement).
+      type: string
+      pattern: "^[0-9]{14}$"
+
+    Company:
+      type: object
+      properties:
+        name:
+          description: Nom de la société
+          type: string
+        address:
+          description: Adresse de la société.
+          $ref: ./GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
+        contactMedium:
+          type: array
+          items:
+            $ref: "#/components/schemas/ContactMedium"
+        siret:
+          $ref: "#/components/schemas/Siret"
+        siren:
+          $ref: "#/components/schemas/Siren"
+
+    ContactMedium:
+      type: object
+      required:
+        - mediumType
+      properties:
+        mediumType:
+          type: string
+          enum:
+            - EMAIL
+            - PHONE
+        value:
+          type: string
