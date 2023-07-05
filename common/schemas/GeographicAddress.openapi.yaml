@@ -71,16 +71,27 @@ components:
             Correspond à la propriété `code_insee` de l'IPE.
         code_hexacle:
           type: string
+          minLength: 10
+          maxLength: 10
           description: |
-            Code Hexacle de la commune.
+            Code "hexaclé numéro" associé à l'adresse publiée tel que décrit dans les référentiels du SNA (diffusion par Mediapost, Uniserve, etc).
+            Ce code est défini par le groupe Interop comme l'identifiant unique de l'adresse utilisé dans les échanges inter-opérateurs sur l'infrastructure et l'accès.
 
-            Correspond à la propriété `code_hexacle` de l'IPE.
-        code_hexavia:
+            En cas d'absence de ce code au moment de la diffusion de l'adresse dans l'IPE,
+            il est à la charge de l'opérateur d'immeuble d'en demander sa création auprès du SNA.
+
+            Cet identifiant est unique pour une adresse donnée mais il peut apparaitre plusieurs fois chez certains opérateurs
+            qui décrivent l'adresse jusqu'au champ batiment.
+
+            Correspond à la propriété `CodeAdresseImmeuble` de l'IPE.
+        code_hexacle_voie:
           type: string
           description: |
-            Code Hexavia de la commune.
+            Correspond à la propriété `CodeHexacleVoie` de l'IPE.
+            Il correspond au 0 de la voie et est différent du code Hexavia.
 
-            Correspond à la propriété `code_hexavia` de l'IPE.
+            La bonne pratique est de le renseigner s'il existe
+            et particulièrement en l'absence de code Hexacle.
         code_rivoli:
           type: string
           description: |
