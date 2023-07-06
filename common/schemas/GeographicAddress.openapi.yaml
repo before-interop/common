@@ -33,7 +33,7 @@ components:
         postcode:
           type: string
           description: |
-            Descriptor for a postal delivery area, used to speed and simplify the delivery of mail (also know as zipcode).
+            Descriptor for a postal delivery area, used to speed and simplify the delivery of mail (also known as zipcode).
 
             Correspond à la propriété `code_postal` de l'IPE.
         stateOrProvince:
