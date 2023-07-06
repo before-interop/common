@@ -150,13 +150,7 @@ components:
           example: FTEL-PTO-00000000000000
 
     Building:
-      description: |
-        Représente un immeuble du fichier IPE.
-
-        * L'`id` de l'immeuble est unique pour un OI. Il est unique par ligne du fichier IPE.
-        * La contrainte d'unicité d'une ligne et l'agrégation des champs suivant:
-          * `address.code_hexacle`
-          * `name` (nom du bâtiment)
+      description: Représente un immeuble du fichier IPE.
       allOf:
         - $ref: ./Entity.openapi.yaml#/components/schemas/Entity
       properties:
