@@ -52,6 +52,7 @@ components:
       type: object
       required:
         - mediumType
+        - value
       properties:
         mediumType:
           type: string
