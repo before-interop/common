@@ -149,16 +149,21 @@ components:
           type: string
           example: FTEL-PTO-00000000000000
 
+    BuildingId:
+      description: |
+        Identifiant d'un immeuble.
+
+        Ce champ est nommé `IdentifiantImmeuble` dans le fichier IPE.
+      type: string
+      maxLength: 30
+
     Building:
       description: Représente un immeuble du fichier IPE.
       allOf:
         - $ref: ./Entity.openapi.yaml#/components/schemas/Entity
       properties:
         id:
-          maxLength: 20
-          description: Identifiant unique de l'immeuble.
-
-            Ce champ est nommé `IdentifiantImmeuble` dans le fichier IPE.
+          $ref: "#/components/schemas/BuildingId"
         address:
           $ref: ./GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
         geographicLocation:
