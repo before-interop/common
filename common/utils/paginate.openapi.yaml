@@ -34,7 +34,7 @@ components:
       description: The maximum number of elements to return.
       schema:
         format: int32
-        default: 100
+        default: 50
         maximum: 100
         minimum: 0
         type: integer
