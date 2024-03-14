@@ -105,6 +105,8 @@ components:
           description: Identifiant du PBO
           type: string
           example: FTEL-PBO-00000000000000
+        address:
+          $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
         commissioningDate:
           description: |
             Date de mise en service du PBO
@@ -148,6 +150,8 @@ components:
           description: Identifiant du PTO
           type: string
           example: FTEL-PTO-00000000000000
+        address:
+          $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
 
     BuildingId:
       description: |
