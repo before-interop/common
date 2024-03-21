@@ -24,7 +24,11 @@ components:
             Correspond à la propriété `commune` de l'IPE.
         country:
           type: string
-          description: Country the address is in
+          description: |
+            Country code of the country the address is in.
+            The code follows the norm [ISO 3166 A-2](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)
+          pattern: ^[A-Z]{2}$
+          example: FR
         locality:
           type: string
           description: |
