@@ -37,7 +37,6 @@ components:
             determined by the trouble ticket system.
           type: string
           format: date-time
-          readOnly: true
           nullable: true
         externalId:
           description: Additional identifier coming from an external system.
@@ -55,7 +54,6 @@ components:
             Example: Critical, High, Medium, Low.
             The value is set by the ticket management system considering the severity, ticket type etc...
           type: string
-          readOnly: true
           nullable: true
         relatedEntity:
           description:
@@ -64,14 +62,12 @@ components:
           type: array
           items:
             $ref: "./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity"
-          readOnly: true
           nullable: true
         relatedParty:
           description: The related party(ies) that are associated to the ticket.
           type: array
           items:
             $ref: "./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity"
-          readOnly: true
           nullable: true
         requestedResolutionDate:
           description: The requested resolution date determined by the user.
