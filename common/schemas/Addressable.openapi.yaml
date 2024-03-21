@@ -22,3 +22,6 @@ components:
         href:
           description: Reference of the related entity.
           type: string
+        "@version":
+          description: The version of the entity. Should be the same value than [ETag](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag).
+          type: string

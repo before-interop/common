@@ -23,3 +23,5 @@ components:
           readOnly: true
         href:
           readOnly: true
+        "@version":
+          readOnly: true
