@@ -11,7 +11,7 @@ info:
 components:
   schemas:
     Extensible:
-      description: Base schema for adressable entities
+      description: Base extensible entity schema
       externalDocs:
         url: https://datamodel.tmforum.org/en/latest/Common/Extensible
       type: object

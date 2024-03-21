@@ -86,6 +86,8 @@ components:
             Correspond à la propriété `CodeAdresseImmeuble` de l'IPE.
         code_hexacle_voie:
           type: string
+          minLength: 10
+          maxLength: 10
           description: |
             Correspond à la propriété `CodeHexacleVoie` de l'IPE.
             Il correspond au 0 de la voie et est différent du code Hexavia.

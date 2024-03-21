@@ -20,11 +20,11 @@ components:
         - name
       properties:
         "@type":
-          default: EntityAttachment
-          example: EntityAttachment
+          default: Attachment
+          example: Attachment
         "@baseType":
-          default: EntityAttachment
-          example: EntityAttachment
+          default: Attachment
+          example: Attachment
         name:
           description: Name of the attachment.
           type: string
