@@ -112,9 +112,6 @@ components:
             Date de mise en service du PBO
             correspondant à la date de fin du délai de prévenance réglementaire
             sur le point de branchement optique.
-
-            Effective si le statut du PBO est `DEPLOYED`.
-            Sinon prévisionnel.
           type: string
           format: date
           example: 2020-01-01
