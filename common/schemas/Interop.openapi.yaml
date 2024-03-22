@@ -37,6 +37,12 @@ components:
           example: FTEL-PM-00000000000000
         address:
           $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
+        geographicLocation:
+          description: Coordonnées géographiques du PM.
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/GeographicPoint"
         status:
           description: Statut du PM
           type: string
@@ -107,6 +113,12 @@ components:
           example: FTEL-PBO-00000000000000
         address:
           $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
+        geographicLocation:
+          description: Coordonnées géographiques du PBO.
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/GeographicPoint"
         commissioningDate:
           description: |
             Date de mise en service du PBO
@@ -152,6 +164,12 @@ components:
           example: FTEL-PTO-00000000000000
         address:
           $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
+        geographicLocation:
+          description: Coordonnées géographiques du PBO.
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/GeographicPoint"
 
     BuildingId:
       description: |
