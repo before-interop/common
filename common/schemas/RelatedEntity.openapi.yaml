@@ -26,8 +26,12 @@ components:
         "@baseType":
           default: RelatedEntity
           example: RelatedEntity
-        id: {}
-        "@referredType": {}
+        id:
+          type: string
+          description: Unique identifier of a related entity.
+        "@referredType":
+          type: string
+          description: The actual type of the target instance when needed for disambiguation.
         role:
           description: The role of an entity.
           type: string
