@@ -95,9 +95,19 @@ components:
 
           alias: `!`, `!is`, `nis`, `isnot`, `not`
 
-        ---
+        * `json`: Check if the property matches a JSON object.
 
-        Example:
+          The value must be a JSON object.
+
+          alias: `j`, `eqjson`
+
+        * `njson`: Check if the property does not match a JSON object.
+
+          The value must be a JSON object.
+
+          alias: `!j`, `njson`, `nejson`, `!json`, `nj`
+
+        ### Example:
 
         ```
         {
@@ -112,6 +122,22 @@ components:
         The generated Url for the previews example will generate the following query string:
 
         `%40type=MyType&status%5Bin%5D=OPEN%2CCLOSED&myarray%5Bnis%5D=empty&relatedEntity.%40referredType=EntityType&relatedEntity.id=31546546`
+
+
+        ### Example for Json operator:
+
+        ```
+        {
+            "relatedEntity[json]": "{\"@referredType\":\"EntityType\",\"id\":\"31546546\"}"
+        }
+        ```
+
+        The generated Url for the previews example will generate the following query string:
+
+        `relatedEntity%5Bjson%5D=%7B%22%40referredType%22%3A%22EntityType%22%2C%22id%22%3A%2231546546%22%7D`
+
+        ---
+
       schema:
         type: object
       style: form
