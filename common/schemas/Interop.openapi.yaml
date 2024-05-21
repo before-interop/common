@@ -257,3 +257,41 @@ components:
             - RGR92
             - RGM04
             - RGSPM06
+
+    OpticalRoute:
+      allOf:
+        - $ref: ./Entity.openapi.yaml#/components/schemas/Entity
+      properties:
+        "@baseType":
+          example: OpticalRoute
+        "@type":
+          example: OpticalRoute
+        noteFiber:
+          description: ajout d'information concernant la fibre
+          type: string
+        noteTube:
+          description: ajout d'information concernant le tube
+          type: string
+        referenceCable:
+          description: Référence du câble
+          type: string
+
+    OpticalRoutePM:
+      allOf:
+        - $ref: "#/components/schemas/OpticalRoute"
+      properties:
+        "@type":
+          example: OpticalRoutePM
+        name:
+          description: Nom du module PM
+          type: string
+        position:
+          description: Position du module PM
+          type: string
+
+    OpticalRoutePBO:
+      allOf:
+        - $ref: "#/components/schemas/OpticalRoute"
+      properties:
+        "@type":
+          example: OpticalRoutePBO
