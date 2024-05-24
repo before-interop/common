@@ -19,6 +19,8 @@ components:
         id:
           description: The unique identifier of the entity.
           type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
         href:
           description: Reference of the related entity.
           type: string
