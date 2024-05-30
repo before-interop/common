@@ -92,6 +92,12 @@ components:
             Nombre de lignes raccordées au PM.
 
             Ce champ est renseigné si le PM est déployé.
+        relatedEntity:
+          type: array
+          items:
+            oneOf:
+              - $ref: "#/components/schemas/RelatedPbo"
+              - $ref: "#/components/schemas/RelatedPrdm"
 
     PBO:
       description: |
@@ -218,17 +224,59 @@ components:
 
             Ce champ est nommé `NombreLogementsAdresseIPE` dans le fichier IPE.
           type: integer
-        pm:
-          description: |
-            Point de Mutualisation du bâtiment.
 
-            Ce champ est nommé `IdentifiantPM` dans le fichier IPE.
-          $ref: "#/components/schemas/PM"
-        pbos:
-          description: Liste des PBOs du bâtiment.
+        relatedEntity:
           type: array
           items:
-            $ref: "#/components/schemas/PBO"
+            oneOf:
+              - $ref: "#/components/schemas/RelatedPm"
+              - $ref: "#/components/schemas/RelatedPbo"
+              - $ref: "#/components/schemas/RelatedPrdm"
+
+    PRDM:
+      description: |
+        Point de Raccordement Distant Mutualisé (PRDM), NRO ou PM de Grande Capacité.
+      type: object
+      required:
+        - id
+      properties:
+        id:
+        type: string
+        description: |
+          Ce champ correspond à la référence d'un Point de Raccordement Distant Mutualisé (PRDM), NRO ou PM de Grande Capacité.
+
+          Information à fournir de façon obligatoire à la maille de l'immeuble conformément à la réglementation :
+
+          si l'immeuble se situe dans la zone arrière d'un PM de moins de 1000 logements (champ NombreLogementsPM<1000) en dehors des zones très denses (champ TypeZone = ZMD) et s'il s'agit :
+          d'un immeuble ayant fait l'objet d'une consultation, dans un délai d'un jour à compter de la fin de la consultation
+          ou d'un immeuble ayant fait l'objet d'une convention syndic, dans un délai d'une semaine à compter la date de signature
+          ou d'un immeuble situé en ZA d'un PM, dans un délai d'un jour à compter de la MAD du PM"
+          Ce champs est nommé ReferencePRDM dans le fichier IPE.
+    RelatedPrdm:
+      allOf:
+        - $ref: ./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity
+      properties:
+        "@referredType":
+          const: "PRDM"
+        role:
+          const: "prdm"
+    RelatedPm:
+      allOf:
+        - $ref: ./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity
+      properties:
+        "@referredType":
+          const: "PM"
+        role:
+          const: "pm"
+
+    RelatedPbo:
+      allOf:
+        - $ref: ./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity
+      properties:
+        "@referredType":
+          const: "PBO"
+        role:
+          const: "pbo"
 
     GeographicPoint:
       allOf:
