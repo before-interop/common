@@ -23,19 +23,19 @@
         urls: [
           {
             name: "TroubleTicket",
-            url: "./tools/trouble-ticket/trouble-ticket.openapi.yaml",
+            url: "./tools/trouble-ticket/trouble-ticket.openapi.yaml?time=" + new Date().getTime(),
           },
           {
             name: "Attachment",
-            url: "./tools/attachment/attachment.openapi.yaml",
+            url: "./tools/attachment/attachment.openapi.yaml?time=" + new Date().getTime(),
           },
           {
             name: "Note",
-            url: "./tools/note/note.openapi.yaml",
+            url: "./tools/note/note.openapi.yaml?time=" + new Date().getTime(),
           },
           {
             name: "Event",
-            url: "./tools/event/event.openapi.yaml",
+            url: "./tools/event/event.openapi.yaml?time=" + new Date().getTime(),
           },
         ],
         dom_id: "#swagger-ui",
