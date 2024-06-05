@@ -32,7 +32,7 @@ servers:
 
 tags:
   - name: Attachment API
-
+  - name: Attachment Multipart
 paths:
   /:
     get:
@@ -132,7 +132,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/AttachmentFormData"
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentFormData"
       responses:
         "201":
           description: The created attachment
@@ -370,21 +370,124 @@ paths:
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-502"
         "503":
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
-
+  /api/attachment/multipart:
+    post:
+      tags:
+        - Attachment Multipart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+        "400":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
+        "401":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-401"
+        "403":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-403"
+        "500":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-500"
+        "501":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-501"
+        "502":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-502"
+        "503":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
+  /api/attachment/multipart/{id}/chunk:
+    post:
+      tags:
+        - Attachment Multipart
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uuid
+        - name: X-Allowed-MimeType
+          in: header
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentChunkForm"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Chunk"
+        "400":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
+        "401":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-401"
+        "403":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-403"
+        "500":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-500"
+        "501":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-501"
+        "502":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-502"
+        "503":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
+  /api/attachment/multipart/{id}/finalize:
+    post:
+      tags:
+        - Attachment Multipart
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+        "400":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
+        "401":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-401"
+        "403":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-403"
+        "500":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-500"
+        "501":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-501"
+        "502":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-502"
+        "503":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
 components:
   schemas:
+    Attachment:
+      allOf:
+        - $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+
+    AttachmentMultipart:
+      $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+
+    AttachmentChunkForm:
+      $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentChunkForm"
+
     AttachmentFormData:
-      required:
-        - file
-        - attachment
-      type: object
-      properties:
-        file:
-          format: binary
-          description: The file to upload
-          type: string
-        attachment:
-          $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+      $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentFormData"
+
+    chunk:
+      $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Chunk"
 
   parameters:
     id:

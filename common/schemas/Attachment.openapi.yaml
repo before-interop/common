@@ -74,3 +74,95 @@ components:
           type: string
           readOnly: true
           example: 8cf1bc0fca7f4158b8eb807be15fd7fd21bfe52d956ce3ede1511671c97dad61
+
+    AttachmentFormData:
+      required:
+        - file
+        - attachment
+      type: object
+      properties:
+        file:
+          format: binary
+          description: The file to upload
+          type: string
+        attachment:
+          $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+
+    AttachmentChunkForm:
+      required:
+        - data
+      type: object
+      properties:
+        data:
+          format: binary
+          description: The file to upload
+          type: string
+        chunk:
+          $ref: "#/components/schemas/Chunk"
+
+    AttachmentMultipart:
+      allOf:
+        - $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+      required:
+        - sha256
+        - name
+        - uploadExpectedChunks
+      properties:
+        uploadExpectedChunks:
+          format: int32
+          type: integer
+          example: 3
+          description: The number of chunks expected to upload
+        status:
+          $ref: "#/components/schemas/Status"
+          readOnly: true
+          description: The status of the attachment
+        "@type":
+          default: AttachmentMultipart
+          example: AttachmentMultipart
+          readOnly: true
+          description: The type of the attachment
+        sha256:
+          description: The SHA256 hash of the attachment.
+          type: string
+          example: 8cf1bc0fca7f4158b8eb807be15fd7fd21bfe52d956ce3ede1511671c97dad61
+        uploadChunks:
+          readOnly: true
+          uniqueItems: true
+          type: array
+          description: The chunks uploaded
+          items:
+            $ref: "#/components/schemas/Chunk"
+
+    Chunk:
+      type: object
+      required:
+        - index
+        - size
+        - sha256
+      properties:
+        index:
+          format: int32
+          type: integer
+          description: The index of the chunk
+        size:
+          format: int32
+          type: integer
+          description: The size of the chunk
+        sha256:
+          type: string
+          description: The SHA256 hash of the chunk
+
+    Status:
+      description: |
+        The status of the attachment
+        PENDING: The attachment is pending to be validated
+        VALIDATED: The attachment is validated
+        REJECTED: The attachment is rejected
+        UPLOADING: The attachment is uploading, all chunks are not uploaded yet
+      enum:
+        - PENDING
+        - VALIDATED
+        - REJECTED
+        - UPLOADING
+      type: string
