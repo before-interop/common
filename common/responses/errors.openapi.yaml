@@ -67,6 +67,13 @@ components:
         application/json:
           schema:
             $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
+    Error-413:
+      description: Request Payload Too Large
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/Error.openapi.yaml#/components/schemas/Error"
+
     Error-500:
       description: Internal Server Error
       content:
