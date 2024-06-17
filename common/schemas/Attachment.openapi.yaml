@@ -25,6 +25,12 @@ components:
         "@baseType":
           default: Attachment
           example: Attachment
+        status:
+          enum:
+            - UPLOADING
+            - UPLOADED
+            - VALIDATED
+            - REJECTED
         name:
           description: Name of the attachment.
           type: string
@@ -42,7 +48,6 @@ components:
           description: The size of the attachment in bytes.
           type: integer
           format: int64
-          readOnly: true
         uri:
           description: Uniform Resource Identifier (URI) of the attachment.
           type: string
@@ -72,5 +77,4 @@ components:
         sha256:
           description: The SHA256 hash of the attachment.
           type: string
-          readOnly: true
           example: 8cf1bc0fca7f4158b8eb807be15fd7fd21bfe52d956ce3ede1511671c97dad61

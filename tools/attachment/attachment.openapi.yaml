@@ -125,17 +125,66 @@ paths:
       tags:
         - Attachment API
       summary: Create a attachment
-      description: This method allows to create a attachment.
+      description: |
+        This method allow you to create a attachment.
+
+        You can use the `application/json` media type to create a attachment in a chunked way.
+        Or you can use the `multipart/form-data` media type to create a attachment in a single request.
+
+        It is recommended to use the `application/json` which is more efficient and allows the creation of large attachments.
       requestBody:
-        description: The attachment to create
+        description: |
+          The metadata of the attachment to create.
+
+          * For the chunked way, the response is a `200 OK`.
+          * For the single request way, the response is a `201 Created`.
         required: true
         content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+              required:
+                - size
+                - sha256
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/AttachmentFormData"
+              type: object
+              required:
+                - file
+                - attachment
+              properties:
+                attachment:
+                  $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+                file:
+                  format: binary
+                  description: The file to upload
+                  type: string
       responses:
+        "200":
+          description: |
+            The attachment metadata.
+
+            You have to use the generated `id` to upload the content of the attachment with the `PUT /attachment/{id}/content` method
+            and finalize the creation of the attachment with the `PATCH /attachment/{id}/content` method.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+          headers:
+            ETag:
+              $ref: "../../common/utils/update.openapi.yaml#/components/headers/ETag"
+            X-Chunk-Size:
+              description: The size max in octet allowed for a chunk
+              schema:
+                type: integer
         "201":
-          description: The created attachment
+          description: |
+            The created attachment metadata.
+
+            The content of the attachment can be downloaded with the `GET /attachment/{id}/content` method
+            once the file has been validated by the server and the status has changed to `VALIDATED`.
           content:
             application/json:
               schema:
@@ -373,20 +422,100 @@ paths:
         "503":
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
 
+    put:
+      tags:
+        - Attachment API
+      summary: upload a chunk of the content of an attachment
+      description: This method allows to upload a chunk of the content of an attachment.
+      requestBody:
+        description: The chunk of the content of the attachment
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+                - metadata
+              properties:
+                file:
+                  format: binary
+                  description: The file to upload
+                  type: string
+                metadata:
+                  $ref: "#/components/schemas/Chunk"
+      responses:
+        "200":
+          description: The chunk has been uploaded
+        "401":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-401"
+        "403":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-403"
+        "404":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-404"
+        "406":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-406"
+        "413":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-413"
+        "500":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-500"
+        "501":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-501"
+        "502":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-502"
+        "503":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
+
+    post:
+      tags:
+        - Attachment API
+      summary: Finalize the creation of the content of an attachment
+      description: |
+        This method allows to finalize the creation of the content of an attachment.
+
+        The server will aggregate all the chunks uploaded and validate the content of the attachment
+        in an asynchronous way.
+      responses:
+        "200":
+          description: The chunk has been uploaded
+        "401":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-401"
+        "403":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-403"
+        "404":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-404"
+        "406":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-406"
+        "500":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-500"
+        "501":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-501"
+        "502":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-502"
+        "503":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
+
 components:
   schemas:
-    AttachmentFormData:
-      required:
-        - file
-        - attachment
+    Chunk:
+      description: Meta information about the chunk
       type: object
+      required:
+        - index
+        - size
+        - sha256
       properties:
-        file:
-          format: binary
-          description: The file to upload
+        index:
+          type: integer
+          minimum: 0
+          description: The index of the chunk
+        size:
+          type: integer
+          minimum: 0
+          description: The size of the chunk in octet
+        sha256:
           type: string
-        attachment:
-          $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+          description: The SHA-256 of the chunk
 
   parameters:
     id:
@@ -396,6 +525,7 @@ components:
       required: true
       schema:
         type: string
+        format: uuid
     If-Match:
       name: If-Match
       in: header
