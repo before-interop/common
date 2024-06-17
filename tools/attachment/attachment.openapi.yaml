@@ -153,6 +153,8 @@ paths:
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-406"
         "409":
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-409"
+        "413":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-413"
         "500":
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-500"
         "501":
