@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 
 info:
   title: StatusEntity
@@ -6,7 +6,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-    identifier: Apache-2.0
 
 components:
   schemas:
@@ -30,9 +29,6 @@ components:
           nullable: false
         status:
           description: The condition of an entity, identified through a code.
-          type: string
-        statusChangeReason:
-          description: The reason why the status changed.
           type: string
         statusChangeDetails:
           description: The details of the status change.

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 
 info:
   title: Extensible
@@ -6,7 +6,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-    identifier: Apache-2.0
 
 components:
   schemas:
@@ -20,7 +19,7 @@ components:
           type: string
           format: uri
           description: A URI to a JSON-Schema file that defines additional attributes and relationships
-          example: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Entity.schema.json
+          example: "https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Entity.schema.json"
           readOnly: true
         "@baseType":
           type: string

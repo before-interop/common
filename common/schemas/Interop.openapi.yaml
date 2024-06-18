@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 
 info:
   title: Interop
@@ -6,7 +6,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-    identifier: Apache-2.0
 
 components:
   schemas:
@@ -36,7 +35,7 @@ components:
           maxLength: 20
           example: FTEL-PM-00000000000000
         address:
-          $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
+          $ref: "./GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress"
         geographicLocation:
           description: Coordonnées géographiques du PM.
           type: array
@@ -112,7 +111,7 @@ components:
           type: string
           example: FTEL-PBO-00000000000000
         address:
-          $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
+          $ref: "./GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress"
         geographicLocation:
           description: Coordonnées géographiques du PBO.
           type: array
@@ -160,7 +159,7 @@ components:
           type: string
           example: FTEL-PTO-00000000000000
         address:
-          $ref: GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
+          $ref: "./GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress"
         geographicLocation:
           description: Coordonnées géographiques du PBO.
           type: array
@@ -179,12 +178,12 @@ components:
     Building:
       description: Représente un immeuble du fichier IPE.
       allOf:
-        - $ref: ./Entity.openapi.yaml#/components/schemas/Entity
+        - $ref: "./Entity.openapi.yaml#/components/schemas/Entity"
       properties:
         id:
           $ref: "#/components/schemas/BuildingId"
         address:
-          $ref: ./GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress
+          $ref: "#/components/schemas/BuildingAddress"
         geographicLocation:
           description: |
             Coordonnées géographiques de l'immeuble.
@@ -219,10 +218,6 @@ components:
             Ce champ est nommé `NombreLogementsAdresseIPE` dans le fichier IPE.
           type: integer
         pm:
-          description: |
-            Point de Mutualisation du bâtiment.
-
-            Ce champ est nommé `IdentifiantPM` dans le fichier IPE.
           $ref: "#/components/schemas/PM"
         pbos:
           description: Liste des PBOs du bâtiment.
@@ -230,9 +225,16 @@ components:
           items:
             $ref: "#/components/schemas/PBO"
 
+    BuildingAddress:
+      allOf:
+        - $ref: "./GeographicAddress.openapi.yaml#/components/schemas/GeographicAddress"
+        - required:
+            - city
+            - postcode
+            - code_insee
     GeographicPoint:
       allOf:
-        - $ref: ./GeographicPoint.openapi.yaml#/components/schemas/GeographicPoint
+        - $ref: "./GeographicPoint.openapi.yaml#/components/schemas/GeographicPoint"
       properties:
         type:
           description: |
