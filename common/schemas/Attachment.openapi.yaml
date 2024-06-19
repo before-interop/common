@@ -74,3 +74,72 @@ components:
           type: string
           readOnly: true
           example: 8cf1bc0fca7f4158b8eb807be15fd7fd21bfe52d956ce3ede1511671c97dad61
+
+    AttachmentImage:
+      allOf:
+        - $ref: "./Attachment.openapi.yaml#/components/schemas/Attachment"
+      properties:
+        "@type":
+          default: AttachmentImage
+          example: AttachmentImage
+        width:
+          description: The width of the image in pixels.
+          type: integer
+          format: int64
+          example: 800
+          readOnly: true
+        height:
+          description: The height of the image in pixels.
+          type: integer
+          format: int64
+          example: 600
+          readOnly: true
+        resolution:
+          description: The resolution of the image in DPI.
+          type: integer
+          format: int64
+          example: 72
+          readOnly: true
+        colorDepth:
+          description: The color depth of the image in bits.
+          type: integer
+          format: int64
+          example: 24
+          readOnly: true
+        thumbnail:
+          description: The thumbnail of the image.
+          type: string
+          format: base64
+          readOnly: true
+        thumbnailWidth:
+          description: The width of the thumbnail in pixels.
+          type: integer
+          format: int64
+          example: 80
+          readOnly: true
+        thumbnailHeight:
+          description: The height of the thumbnail in pixels.
+          type: integer
+          format: int64
+          example: 60
+          readOnly: true
+        geoLocation:
+          description: The geo location of the image.
+          readOnly: true
+          allOf:
+            - $ref: "./GeographicPoint.openapi.yaml#/components/schemas/GeographicPoint"
+        exif:
+          description: The EXIF data of the image.
+          type: object
+          readOnly: true
+          additionalProperties:
+            type: string
+          example:
+            {
+              "Make": "Canon",
+              "Model": "Canon EOS 5D Mark III",
+              "ExposureTime": "1/60",
+              "FNumber": "f/4.0",
+              "ISOSpeedRatings": 3200,
+              "DateTimeOriginal": "2019-12-31T23:59:59Z",
+            }
