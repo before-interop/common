@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 
 info:
   title: RelatedEntity
@@ -6,7 +6,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-    identifier: Apache-2.0
 
 components:
   schemas:
@@ -21,11 +20,13 @@ components:
         - $ref: "./EntityRef.openapi.yaml#/components/schemas/EntityRef"
       properties:
         "@type":
-          default: RelatedEntity
-          example: RelatedEntity
+          type: string
+          default: "RelatedEntity"
+          example: "RelatedEntity"
         "@baseType":
-          default: RelatedEntity
-          example: RelatedEntity
+          type: string
+          default: "RelatedEntity"
+          example: "RelatedEntity"
         id:
           type: string
           description: Unique identifier of a related entity.

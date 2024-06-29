@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 
 info:
   title: TroubleTicket
@@ -6,7 +6,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-    identifier: Apache-2.0
 
 components:
   schemas:
@@ -20,24 +19,25 @@ components:
       allOf:
         - $ref: "./StatusEntity.openapi.yaml#/components/schemas/StatusEntity"
       properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
         "@type":
-          default: TroubleTicket
-          example: TroubleTicket
+          type: string
+          default: "TroubleTicket"
+          example: "TroubleTicket"
         "@baseType":
-          default: TroubleTicket
-          example: TroubleTicket
+          type: string
+          default: "TroubleTicket"
+          example: "TroubleTicket"
         "@schemaLocation":
-          default: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/TroubleTicket.schema.json
-          example: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/TroubleTicket.schema.json
+          type: string
+          default: "https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/TroubleTicket.schema.json"
+          example: "https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/TroubleTicket.schema.json"
         description:
           description: Description of the trouble or issue.
           type: string
-        expectedResolutionDate:
-          description: The expected resolution date
-            determined by the trouble ticket system.
-          type: string
-          format: date-time
-          nullable: true
         externalId:
           description: Additional identifier coming from an external system.
           type: string

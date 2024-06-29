@@ -1,12 +1,11 @@
-openapi: 3.1.0
+openapi: 3.0.3
 
 info:
-  title: Entity
+  title: Error
   version: 2.0.0
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-    identifier: Apache-2.0
 
 components:
   schemas:
@@ -19,14 +18,17 @@ components:
         - reason
       properties:
         "@type":
-          default: Error
-          example: Error
+          type: string
+          default: "Error"
+          example: "Error"
         "@baseType":
-          default: Error
-          example: Error
+          type: string
+          default: "Error"
+          example: "Error"
         "@schemaLocation":
-          default: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Error.schema.json
-          example: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Error.schema.json
+          type: string
+          default: "https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Error.schema.json"
+          example: "https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Error.schema.json"
         code:
           type: string
           description: Application relevant detail, defined in the API or a common list.

@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 
 info:
   title: Event API
@@ -6,7 +6,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-    identifier: Apache-2.0
 
 servers:
   - url: "{protocol}://{host}:{port}{basePath}/event"
@@ -36,19 +35,19 @@ paths:
         List all events.
       operationId: listEvents
       parameters:
-        - $ref: ../../common/utils/paginate.openapi.yaml#/components/parameters/limit
-        - $ref: ../../common/utils/paginate.openapi.yaml#/components/parameters/offset
-        - $ref: ../../common/utils/paginate.openapi.yaml#/components/parameters/sort
-        - $ref: ../../common/utils/fields.openapi.yaml#/components/parameters/fields
-        - $ref: ../../common/utils/filters.openapi.yaml#/components/parameters/filters
+        - $ref: "../../common/utils/paginate.openapi.yaml#/components/parameters/limit"
+        - $ref: "../../common/utils/paginate.openapi.yaml#/components/parameters/offset"
+        - $ref: "../../common/utils/paginate.openapi.yaml#/components/parameters/sort"
+        - $ref: "../../common/utils/fields.openapi.yaml#/components/parameters/fields"
+        - $ref: "../../common/utils/filters.openapi.yaml#/components/parameters/filters"
       responses:
         "200":
           description: The list of events
           headers:
             X-Total-Count:
-              $ref: ../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count
+              $ref: "../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count"
             X-Result-Count:
-              $ref: ../../common/utils/paginate.openapi.yaml#/components/headers/X-Result-Count
+              $ref: "../../common/utils/paginate.openapi.yaml#/components/headers/X-Result-Count"
           content:
             text/event-stream:
               schema:
@@ -64,9 +63,9 @@ paths:
                 items:
                   $ref: "#/components/schemas/CloudEvent"
         "400":
-          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/Error-400
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
         default:
-          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/default
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/default"
 
     head:
       tags:
@@ -76,17 +75,17 @@ paths:
         Count all events.
       operationId: countEvents
       parameters:
-        - $ref: ../../common/utils/filters.openapi.yaml#/components/parameters/filters
+        - $ref: "../../common/utils/filters.openapi.yaml#/components/parameters/filters"
       responses:
         "200":
           description: The number of events
           headers:
             X-Total-Count:
-              $ref: ../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count
+              $ref: "../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count"
         "400":
-          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/Error-400
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
         default:
-          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/default
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/default"
 
     post:
       tags:
@@ -110,9 +109,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/CloudEvent"
         "400":
-          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/Error-400
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
         default:
-          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/default
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/default"
 
     delete:
       tags:
@@ -122,23 +121,23 @@ paths:
         Delete all events.
       operationId: deleteEvents
       parameters:
-        - $ref: ../../common/utils/filters.openapi.yaml#/components/parameters/filters
+        - $ref: "../../common/utils/filters.openapi.yaml#/components/parameters/filters"
       responses:
         "204":
           description: The events have been deleted
           headers:
             X-Total-Count:
-              $ref: ../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count
+              $ref: "../../common/utils/paginate.openapi.yaml#/components/headers/X-Total-Count"
         "400":
-          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/Error-400
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
         default:
-          $ref: ../../common/responses/errors.openapi.yaml#/components/responses/default
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/default"
 
 components:
   schemas:
     CloudEvent:
       allOf:
-        - $ref: ../../common/schemas/CloudEvent.openapi.yaml#/components/schemas/CloudEvent
+        - $ref: "../../common/schemas/CloudEvent.openapi.yaml#/components/schemas/CloudEvent"
       properties:
         data:
           oneOf:

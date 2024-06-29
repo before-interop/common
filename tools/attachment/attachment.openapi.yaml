@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 
 info:
   title: Attachment API
@@ -6,7 +6,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-    identifier: Apache-2.0
   description: |
     This API allows to manage attachments.
 
@@ -378,15 +377,12 @@ components:
     AttachmentFormData:
       required:
         - file
-        - attachment
       type: object
       properties:
         file:
           format: binary
           description: The file to upload
           type: string
-        attachment:
-          $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
 
   parameters:
     id:

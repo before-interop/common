@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 
 info:
   title: Note
@@ -6,7 +6,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-    identifier: Apache-2.0
 
 components:
   schemas:
@@ -18,14 +17,17 @@ components:
         - $ref: "./Entity.openapi.yaml#/components/schemas/Entity"
       properties:
         "@type":
-          default: Note
-          example: Note
+          type: string
+          default: "Note"
+          example: "Note"
         "@baseType":
-          default: Note
-          example: Note
+          type: string
+          default: "Note"
+          example: "Note"
         "@schemaLocation":
-          default: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Note.schema.json
-          example: https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Note.schema.json
+          type: string
+          default: "https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Note.schema.json"
+          example: "https://raw.githubusercontent.com/tmforum-apis/Open_Api_And_Data_Model/master/schemas/Common/Note.schema.json"
         text:
           description: The text of the note.
           type: string

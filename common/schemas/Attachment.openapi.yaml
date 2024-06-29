@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.3
 
 info:
   title: Attachment
@@ -6,7 +6,6 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-    identifier: Apache-2.0
 
 components:
   schemas:
@@ -18,13 +17,20 @@ components:
         - $ref: "./StatusEntity.openapi.yaml#/components/schemas/StatusEntity"
       required:
         - name
+        - "@type"
       properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
         "@type":
-          default: Attachment
-          example: Attachment
+          type: string
+          default: "Attachment"
+          example: "Attachment"
         "@baseType":
-          default: Attachment
-          example: Attachment
+          type: string
+          default: "Attachment"
+          example: "Attachment"
         name:
           description: Name of the attachment.
           type: string
