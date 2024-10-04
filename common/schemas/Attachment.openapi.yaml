@@ -18,6 +18,11 @@ components:
         - required:
             - name
             - "@type"
+          discriminator:
+            propertyName: "@type"
+            mapping:
+              Attachment: "#/components/schemas/Attachment"
+              AttachmentImage: "#/components/schemas/AttachmentImage"
           properties:
             id:
               type: string
