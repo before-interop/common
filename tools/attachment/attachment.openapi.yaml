@@ -31,7 +31,7 @@ servers:
 
 tags:
   - name: Attachment API
-
+  - name: Attachment Multipart
 paths:
   /:
     get:
@@ -124,17 +124,53 @@ paths:
       tags:
         - Attachment API
       summary: Create a attachment
-      description: This method allows to create a attachment.
+      description: |
+        This method allow you to create a attachment.
+
+        You can use the `application/json` media type to create a attachment in a chunked way.
+        Or you can use the `multipart/form-data` media type to create a attachment in a single request.
+
+        It is recommended to use the `application/json` which is more efficient and allows the creation of large attachments.
       requestBody:
-        description: The attachment to create
+        description: |
+          The metadata of the attachment to create.
+
+          * For the chunked way, the response is a `200 OK`.
+          * For the single request way, the response is a `201 Created`.
         required: true
         content:
+          application/json:
+            schema:
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
           multipart/form-data:
             schema:
-              $ref: "#/components/schemas/AttachmentFormData"
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentFormData"
+
       responses:
+        "200":
+          description: |
+            The attachment metadata.
+
+            You have to use the generated `id` to upload the content of the attachment with the `PUT /attachment/{id}/content` method
+            and finalize the creation of the attachment with the `PATCH /attachment/{id}/content` method.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+          headers:
+            ETag:
+              $ref: "../../common/utils/update.openapi.yaml#/components/headers/ETag"
+            X-Chunk-Size:
+              description: The size max in octet allowed for a chunk
+              schema:
+                type: integer
         "201":
-          description: The created attachment
+          description: |
+            The created attachment metadata.
+
+            The content of the attachment can be downloaded with the `GET /attachment/{id}/content` method
+            once the file has been validated by the server and the status has changed to `VALIDATED`.
           content:
             application/json:
               schema:
@@ -204,7 +240,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+          multipart/form-data:
+            schema:
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentFormData"
       responses:
         "200":
           description: Attachments updated
@@ -371,18 +410,110 @@ paths:
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-502"
         "503":
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
-
+  /api/attachment/multipart:
+    post:
+      tags:
+        - Attachment Multipart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+        "400":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
+        "401":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-401"
+        "403":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-403"
+        "500":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-500"
+        "501":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-501"
+        "502":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-502"
+        "503":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
+  /api/attachment/multipart/{id}/chunk:
+    post:
+      tags:
+        - Attachment Multipart
+      parameters:
+        - $ref: "#/components/parameters/id"
+        - name: X-Allowed-MimeType
+          in: header
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentChunkForm"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Chunk"
+        "400":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
+        "401":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-401"
+        "403":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-403"
+        "404":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-404"
+        "406":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-406"
+        "413":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-413"
+        "500":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-500"
+        "501":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-501"
+        "502":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-502"
+        "503":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
+  /api/attachment/multipart/{id}/finalize:
+    post:
+      tags:
+        - Attachment Multipart
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+        "400":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
+        "401":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-401"
+        "403":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-403"
+        "404":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-404"
+        "406":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-406"
+        "500":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-500"
+        "501":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-501"
+        "502":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-502"
+        "503":
+          $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
 components:
-  schemas:
-    AttachmentFormData:
-      required:
-        - file
-      type: object
-      properties:
-        file:
-          format: binary
-          description: The file to upload
-          type: string
 
   parameters:
     id:
@@ -392,6 +523,7 @@ components:
       required: true
       schema:
         type: string
+        format: uuid
     If-Match:
       name: If-Match
       in: header
