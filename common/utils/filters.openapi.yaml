@@ -9,6 +9,7 @@ info:
 
 components:
   parameters:
+
     filters:
       name: filters
       in: query
@@ -137,7 +138,17 @@ components:
 
         ---
 
-      schema:
-        type: string
       style: form
       explode: true
+      required: true
+      schema:
+        type: object
+        additionalProperties:
+          not:
+            enum:
+              - offset
+              - sort
+              - limits
+              - fields
+          type: string
+      allowEmptyValue: true
