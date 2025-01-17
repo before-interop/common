@@ -16,11 +16,6 @@ components:
         url: https://datamodel.tmforum.org/en/latest/Common/EntityAttachment
       allOf:
         - $ref: "./StatusEntity.openapi.yaml#/components/schemas/StatusEntity"
-        - discriminator:
-            propertyName: "@type"
-            mapping:
-              Attachment: "#/components/schemas/Attachment"
-              AttachmentMultipart: "#/components/schemas/AttachmentMultipart"
           required:
             - name
             - "@type"
@@ -37,9 +32,6 @@ components:
                 Type d'attachement.
 
                 Les valeurs possibles sont:
-
-                * `Attachment`: "#/components/schemas/Attachment"
-                * `AttachmentMultipart`: "#/components/schemas/AttachmentMultipart"
             "@baseType":
               type: string
               default: "Attachment"
