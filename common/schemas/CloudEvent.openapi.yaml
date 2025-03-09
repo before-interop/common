@@ -49,7 +49,6 @@ components:
           format: uri
           description: Identifies the context in which an event happened.
           example: https://github.com/cloudevents
-          minLength: 1
         id:
           type: string
           description: A common identifier for the event.
@@ -61,7 +60,6 @@ components:
           description: Timestamp of when the occurrence happened.
             Must adhere to [RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339).
           example: 2018-04-05T17:31:00Z
-          minLength: 1
         datacontenttype:
           type: string
           description: Content type of the data value.
@@ -73,7 +71,6 @@ components:
           format: uri
           description: Identifies the schema that data adheres to.
           example: http://cloudevents.io/schema.json
-          minLength: 1
         subject:
           type: string
           description: Describes the subject of the event in the context of the event producer (identified by source).
