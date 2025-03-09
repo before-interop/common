@@ -9,46 +9,30 @@ info:
 
 components:
   schemas:
-    Attachment:
+    AttachmentBase:
       description: An attachment is a file that is attached to an entity.
-
       externalDocs:
         url: https://datamodel.tmforum.org/en/latest/Common/EntityAttachment
       allOf:
         - $ref: "./StatusEntity.openapi.yaml#/components/schemas/StatusEntity"
-        - discriminator:
-            propertyName: "@type"
-            mapping:
-              Attachment: "#/components/schemas/Attachment"
-              AttachmentMultipart: "#/components/schemas/AttachmentMultipart"
-          required:
+        - required:
             - name
-            - "@type"
           properties:
             id:
               type: string
               format: uuid
               readOnly: true
-            "@type":
-              type: string
-              default: "Attachment"
-              example: "Attachment"
-              description: |
-                Type d'attachement.
-
-                Les valeurs possibles sont:
-
-                * `Attachment`: "#/components/schemas/Attachment"
-                * `AttachmentMultipart`: "#/components/schemas/AttachmentMultipart"
             "@baseType":
               type: string
               default: "Attachment"
               example: "Attachment"
             status:
-              enum:
-                - UPLOADED
-                - VALIDATED
-                - REJECTED
+              type: object
+              description: Status of the attachment. This object has to be redefined in child schemas.
+            statusChangeDetails:
+              type: string
+              readOnly: true
+              description: The details of the status change.
             name:
               description: Name of the attachment.
               type: string
@@ -58,25 +42,21 @@ components:
               type: string
               example: Image of the product
             mimeType:
-              description: The mime type of the attachment.
-              type: string
+              description: The mime type of the attachment. This object has to be redefined in child schemas.
+              type: object
               readOnly: true
               example: image/jpeg
             size:
               description: The size of the attachment in bytes.
               type: integer
               format: int64
-              readOnly: true
             uri:
               description: Uniform Resource Identifier (URI) of the attachment.
               type: string
               readOnly: true
             relatedEntity:
-              description: The entities related to the attachment.
-              type: array
-              items:
-                $ref: "./RelatedEntity.openapi.yaml#/components/schemas/RelatedEntity"
-              readOnly: true
+              type: object
+              description: The entities related to the attachment. This object has to be redefined in child schemas.
             relatedParty:
               description: The parties related to the attachment.
               type: array
@@ -98,77 +78,116 @@ components:
               type: string
               example: 8cf1bc0fca7f4158b8eb807be15fd7fd21bfe52d956ce3ede1511671c97dad61
 
-    AttachmentFormData:
-      required:
-        - file
-        - attachment
+    AttachmentMonoPart:
       properties:
-        file:
-          format: binary
-          description: The file to upload
+        status:
+          enum:
+            - PENDING
+            - VALIDATED
+            - REJECTED
           type: string
-        attachment:
-          $ref: "#/components/schemas/Attachment"
+          readOnly: true
 
-    AttachmentChunkForm:
-      required:
-        - data
+    SpecialisationImage:
       properties:
-        data:
-          format: binary
-          description: The file to upload
+        mimeType:
           type: string
-        chunk:
-          $ref: "#/components/schemas/Chunk"
+          enum:
+            - image/jpeg
+            - image/jpg
+            - image/png
+            - image/svg+xml
+        width:
+          description: The width of the image in pixels.
+          type: integer
+          format: int64
+          example: 800
+          readOnly: true
+        height:
+          description: The height of the image in pixels.
+          type: integer
+          format: int64
+          example: 600
+          readOnly: true
+        resolution:
+          description: The resolution of the image in DPI.
+          type: integer
+          format: int64
+          example: 72
+          readOnly: true
+        colorDepth:
+          description: The color depth of the image in bits.
+          type: integer
+          format: int64
+          example: 24
+          readOnly: true
+        thumbnail:
+          description: The thumbnail of the image.
+          type: string
+          format: base64
+          readOnly: true
+        thumbnailWidth:
+          description: The width of the thumbnail in pixels.
+          type: integer
+          format: int64
+          example: 80
+          readOnly: true
+        thumbnailHeight:
+          description: The height of the thumbnail in pixels.
+          type: integer
+          format: int64
+          example: 60
+          readOnly: true
+        geoLocation:
+          description: The geo location of the image.
+          readOnly: true
+          allOf:
+            - $ref: "./GeographicPoint.openapi.yaml#/components/schemas/GeographicPoint"
+        exif:
+          description: The EXIF data of the image.
+          type: object
+          readOnly: true
+          additionalProperties:
+            type: string
+          example:
+            {
+              "Make": "Canon",
+              "Model": "Canon EOS 5D Mark III",
+              "ExposureTime": "1/60",
+              "FNumber": "f/4.0",
+              "ISOSpeedRatings": 3200,
+              "DateTimeOriginal": "2019-12-31T23:59:59Z",
+            }
 
-    AttachmentMultipart:
-      allOf:
-        - $ref: "#/components/schemas/Attachment"
-        - required:
-            - sha256
-            - name
-            - uploadExpectedChunks
-          properties:
-            uploadExpectedChunks:
-              format: int32
-              type: integer
-              example: 3
-              description: The number of chunks expected to upload
-            status:
-              enum:
-                - UPLOADING
-                - UPLOADED
-                - VALIDATED
-                - REJECTED
-              description: The status of the attachment
-            "@type":
-              default: AttachmentMultipart
-              example: AttachmentMultipart
-              readOnly: true
-              description: The type of the attachment
-            sha256:
-              description: The SHA256 hash of the attachment.
-              type: string
-              example: 8cf1bc0fca7f4158b8eb807be15fd7fd21bfe52d956ce3ede1511671c97dad61
-            uploadChunks:
-              readOnly: true
-              uniqueItems: true
-              type: array
-              description: The chunks uploaded
-              items:
-                $ref: "#/components/schemas/Chunk"
+    AttachmentMultiPart:
+      properties:
+        status:
+          enum:
+            - UPLOADING
+            - UPLOADED
+            - VALIDATED
+            - REJECTED
+          type: string
+          readOnly: true
+          description: The status of the attachment
+        uploadedChunks:
+          readOnly: true
+          uniqueItems: true
+          type: array
+          description: The chunks uploaded
+          items:
+            $ref: "#/components/schemas/Chunk"
+          example: AttachmentMalfaconMultiPart
+      required:
+        - sha256
+        - name
 
     Chunk:
       type: object
       required:
-        - index
         - size
         - sha256
       properties:
-        index:
-          format: int32
-          type: integer
-          description: The index of the chunk
         size:
           format: int32
           type: integer
