@@ -64,7 +64,7 @@ paths:
           content:
             text/event-stream:
               schema:
-                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentBase"
               example: |-
                 data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43497","date":"2023-04-10T07:22:24.510+00:00","text":"string","@baseType":"Note","@type":"Note"}
                 data:{"id":"987b8913-f7df-4af0-9bcd-c593d1d43498","date":"2023-04-10T07:22:24.510+00:00","text":"string","@baseType":"Note","@type":"Note"}
@@ -74,7 +74,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+                  $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentBase"
         "400":
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
         "401":
@@ -141,7 +141,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultiPart"
           multipart/form-data:
             schema:
               $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentFormData"
@@ -157,7 +157,7 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+                  - $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentBase"
           headers:
             ETag:
               $ref: "../../common/utils/update.openapi.yaml#/components/headers/ETag"
@@ -174,7 +174,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentBase"
           headers:
             ETag:
               $ref: "../../common/utils/update.openapi.yaml#/components/headers/ETag"
@@ -240,7 +240,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultiPart"
           multipart/form-data:
             schema:
               $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentFormData"
@@ -286,7 +286,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentBase"
           headers:
             ETag:
               $ref: "../../common/utils/update.openapi.yaml#/components/headers/ETag"
@@ -318,7 +318,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentBase"
       parameters:
         - $ref: "../../common/utils/update.openapi.yaml#/components/parameters/If-Match"
       responses:
@@ -327,7 +327,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/Attachment"
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentBase"
         "400":
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
         "401":
@@ -418,14 +418,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+              $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultiPart"
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultiPart"
         "400":
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
         "401":
@@ -494,7 +494,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultipart"
+                $ref: "../../common/schemas/Attachment.openapi.yaml#/components/schemas/AttachmentMultiPart"
         "400":
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-400"
         "401":

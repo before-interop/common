@@ -195,3 +195,26 @@ components:
         sha256:
           type: string
           description: The SHA256 hash of the chunk
+
+    AttachmentFormData:
+      required:
+        - file
+        - attachment
+      properties:
+        file:
+          format: binary
+          description: The file to upload
+          type: string
+        attachment:
+          $ref: "#/components/schemas/AttachmentBase"
+
+    AttachmentChunkForm:
+      required:
+        - data
+      properties:
+        data:
+          format: binary
+          description: The file to upload
+          type: string
+        chunk:
+          $ref: "#/components/schemas/Chunk"
