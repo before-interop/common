@@ -185,9 +185,14 @@ components:
     Chunk:
       type: object
       required:
+        - index
         - size
         - sha256
       properties:
+        index:
+          format: int32
+          type: integer
+          description: The index of the chunk
         size:
           format: int32
           type: integer
