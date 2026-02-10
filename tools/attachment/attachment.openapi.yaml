@@ -2,7 +2,7 @@ openapi: 3.0.3
 
 info:
   title: Attachment API
-  version: 2.0.0
+  version: 1.0.0
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -514,7 +514,6 @@ paths:
         "503":
           $ref: "../../common/responses/errors.openapi.yaml#/components/responses/Error-503"
 components:
-
   parameters:
     id:
       name: id
