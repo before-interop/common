@@ -522,7 +522,6 @@ components:
       required: true
       schema:
         type: string
-        format: uuid
     If-Match:
       name: If-Match
       in: header
