@@ -241,16 +241,14 @@ components:
                 The type of the coordinates system.
 
                 Allowed values are:
-                * `WGS84`: World Geodetic System 1984 (Longitude/Latitude)
-                    Système de coordonnées utilisé par le GPS.
-                    Il est le système français de référence pour la Guadeloupe et la Martinique.
-                * `RGF93`: (Lambert 93) Réseau Français métropolitain de Géodésie 1993 (Easting/Northing).
-                * `RGFG95`: Réseau Géodésique Français Guyane 1995 (Easting/Northing)
-                * `RGR92`: Réseau Géodésique de la Réunion 1992 (Easting/Northing)
-                * `RGM04`: Réseau Géodésique de Mayotte 2004 (Easting/Northing)
-                * `RGSPM06`: Réseau Géodésique de Saint-Pierre et Miquelon 2006 (Easting/Northing)
+                * `WGS84 - EPSG:4326`: World Geodetic System 1984 (Longitude/Latitude) – EPSG:4326 (utilisé en UTM20N pour la Guyane et en WGS84 standard ailleurs).
+                * `RFG93 - EPSG:2154`: (Lambert 93) Réseau Français métropolitain de Géodésie 1993 (Easting/Northing).
+                * `RGFG95 / UTM Zone 22N - EPSG:2972`: Réseau Géodésique Français Guyane 1995 (Easting/Northing)
+                * `RGR92 / UTM Zone 40S - EPSG:2975`: Réseau Géodésique de la Réunion 1992 (Easting/Northing)
+                * `RGM04 - EPSG:4470`: Réseau Géodésique de Mayotte 2004 (Easting/Northing)
+                * `RGSPM06 - EPSG:4638`: Réseau Géodésique de Saint-Pierre et Miquelon 2006 (Easting/Northing)
 
-                Correspond à la propriété `typeProjection` de l'building.
+                Correspond à la propriété `typeProjection` du building.
               enum:
                 - WGS84
                 - RGF93
